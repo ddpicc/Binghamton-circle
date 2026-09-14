@@ -1,0 +1,162 @@
+<view class="page">
+  <scroll-view class="scroll" scroll-y>
+    <view class="hero" wx:if="{{activity}}">
+      <image class="hero-image" src="{{activityView.cover}}" mode="aspectFill" />
+      <view class="hero-overlay"></view>
+      <view class="top-nav" style="padding-top: {{safeTop}}px;">
+        <view class="nav-btn" bindtap="onBack">
+          <image class="nav-icon" src="/assets/icons/arrow_back_ios_new_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" mode="aspectFit" />
+        </view>
+        <view class="nav-btn" bindtap="onMore">
+          <image class="nav-icon" src="/assets/icons/more-horiz-muted.svg" mode="aspectFit" />
+        </view>
+      </view>
+    </view>
+
+    <view class="container" wx:if="{{activity}}">
+      <view class="title-card">
+        <view class="title-row">
+          <text class="status-chip">{{activityView.statusText}}</text>
+          <view class="title-avatars" wx:if="{{participantPreview.length}}">
+            <image wx:for="{{participantPreview}}" wx:key="id" class="title-avatar" src="{{item.avatar}}" mode="aspectFill" />
+          </view>
+        </view>
+        <text class="activity-title">{{activity.title}}</text>
+        <view class="hot-row">
+          <image class="hot-icon" src="/assets/icons/local_fire_department_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" mode="aspectFit" />
+          <text class="hot-text">已有 {{activityView.participantCount}} 人关注此活动</text>
+        </view>
+      </view>
+
+      <view class="info-card">
+        <view class="info-row">
+          <view class="info-icon-wrap">
+            <image class="info-icon" src="/assets/icons/event-primary.svg" mode="aspectFit" />
+          </view>
+          <view class="info-main">
+            <text class="info-label">活动时间</text>
+            <text class="info-value">{{activityView.timeText}}</text>
+          </view>
+        </view>
+
+        <view class="info-row">
+          <view class="info-icon-wrap">
+            <image class="info-icon" src="/assets/icons/location-on-primary-soft.svg" mode="aspectFit" />
+          </view>
+          <view class="info-main">
+            <text class="info-label">活动地点</text>
+            <text class="info-value">{{activityView.locationText}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="organizer-card">
+        <view class="organizer-left">
+          <image class="organizer-avatar" src="{{activityView.publisherAvatar}}" mode="aspectFill" />
+          <view class="organizer-main">
+            <text class="organizer-label">发起者</text>
+            <text class="organizer-name">{{activityView.publisherName}}</text>
+            <view class="organizer-verified">
+              <image class="organizer-verified-icon" src="/assets/icons/verified_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" mode="aspectFit" />
+              <text class="organizer-verified-text">官方认证组织</text>
+            </view>
+          </view>
+        </view>
+        <view class="follow-btn">关注</view>
+      </view>
+
+      <view class="members-card" bindtap="onToggleParticipants">
+        <view class="members-header">
+          <text class="members-title">已报名成员 ({{activityView.participantCount}})</text>
+          <image class="members-arrow" src="/assets/icons/chevron_right_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" mode="aspectFit" />
+        </view>
+        <scroll-view class="member-scroll" scroll-x enable-flex>
+          <view class="member-list">
+            <block wx:for="{{participants}}" wx:key="id" wx:for-index="index">
+              <view class="member-item" wx:if="{{index < 8}}">
+                <image wx:if="{{item.avatar}}" class="member-avatar" src="{{item.avatar}}" mode="aspectFill" />
+                <view wx:else class="member-avatar member-avatar-fallback">{{item.displayName ? item.displayName[0] : '友'}}</view>
+                <text class="member-name">{{item.displayName}}</text>
+              </view>
+            </block>
+            <view class="member-item" wx:if="{{!participants.length}}">
+              <view class="member-avatar member-avatar-fallback">友</view>
+              <text class="member-name">暂无</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+
+      <view class="participants-panel" wx:if="{{showParticipants}}">
+        <view class="participants-loading" wx:if="{{participantsLoading}}">加载报名名单中...</view>
+        <view class="participants-empty" wx:if="{{!participantsLoading && !participants.length}}">当前还没有同学报名</view>
+        <block wx:if="{{!participantsLoading}}">
+          <view class="participant-line" wx:for="{{participants}}" wx:key="id">
+            <view class="participant-line-left">
+              <image wx:if="{{item.avatar}}" class="participant-line-avatar" src="{{item.avatar}}" mode="aspectFill" />
+              <view wx:else class="participant-line-avatar participant-line-avatar-fallback">{{item.displayName ? item.displayName[0] : '友'}}</view>
+              <view class="participant-line-main">
+                <text class="participant-line-name">{{item.displayName}}</text>
+                <text class="participant-line-time">{{item.joinedAtText ? ('报名于 ' + item.joinedAtText) : '已报名'}}</text>
+              </view>
+            </view>
+            <text class="participant-line-action" data-id="{{item.id}}" bindtap="onParticipantTap">查看</text>
+          </view>
+        </block>
+      </view>
+
+      <view class="detail-block" wx:if="{{activity.description}}">
+        <view class="detail-title-wrap">
+          <view class="detail-title-bar"></view>
+          <text class="detail-title">活动详情</text>
+        </view>
+
+        <view class="detail-paragraph">
+          <text>{{activity.description}}</text>
+        </view>
+
+        <view class="highlight-card">
+          <text class="highlight-title">活动亮点：</text>
+          <text class="highlight-item">• 不插电现场：感受最纯粹的乐器音色。</text>
+          <text class="highlight-item">• 草坪市集：精美手作、校园文创。</text>
+          <text class="highlight-item">• 落日合唱：全场大合唱，留住校园时刻。</text>
+        </view>
+
+        <image wx:if="{{activityView.cover}}" class="detail-image" src="{{activityView.cover}}" mode="aspectFill" />
+      </view>
+    </view>
+
+    <view wx:else class="loading">
+      <text>加载中...</text>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-bar" wx:if="{{activity}}">
+    <button class="bottom-icon-btn" open-type="share">
+      <image class="bottom-icon" src="/assets/icons/share-nodes-muted.svg" mode="aspectFit" />
+    </button>
+    <button class="bottom-icon-btn" bindtap="onToggleFavorite">
+      <image class="bottom-icon" src="{{favoriteIcon}}" mode="aspectFit" />
+    </button>
+    <button
+      wx:if="{{isCreator}}"
+      class="join-btn {{joinLoading ? 'disabled' : ''}} {{activity.is_joined ? 'joined' : ''}}"
+      bindtap="onEditActivity"
+      data-id="{{activity.id}}"
+    >
+      <text class="join-text">{{activityView.ctaText}}</text>
+      <text class="join-sparkle">✦</text>
+    </button>
+    <button
+      wx:else
+      class="join-btn {{joinLoading ? 'disabled' : ''}} {{activity.is_joined ? 'joined' : ''}}"
+      bindtap="onToggleJoin"
+      data-id="{{activity.id}}"
+    >
+      <text class="join-text">{{activityView.ctaText}}</text>
+      <text class="join-sparkle">✦</text>
+    </button>
+  </view>
+</view>
+
+<profile-completion-sheet />

@@ -1,0 +1,110 @@
+<view class="page">
+  <view class="topbar">
+    <view class="topbar-left">
+      <view class="icon-btn" bindtap="handleBack">
+        <image class="icon back-icon" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+      </view>
+      <text class="topbar-title">Binghamton Circle</text>
+    </view>
+    <view class="topbar-right">
+      <view class="icon-btn" bindtap="handleShareTap">
+        <image class="icon" src="/assets/icons/share-muted.svg" mode="aspectFit" />
+      </view>
+      <view class="icon-btn" bindtap="handleMoreTap">
+        <image class="icon" src="/assets/icons/more-horiz-muted.svg" mode="aspectFit" />
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y enable-back-to-top refresher-enabled bindrefresherrefresh="onPullDownRefresh">
+    <view class="loading" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <view class="error-card" wx:if="{{!loading && error}}">
+      <text class="error-text">{{error}}</text>
+      <button class="retry-btn" size="mini" bindtap="handleRetry">重试</button>
+    </view>
+
+    <block wx:if="{{!loading && post}}">
+      <view class="hero">
+        <image wx:if="{{post.heroImage}}" class="hero-image" src="{{post.heroImage}}" mode="aspectFill" />
+        <view wx:else class="hero-image hero-fallback"></view>
+        <view class="hero-mask"></view>
+        <view class="hero-content">
+          <view class="hero-main">
+            <view class="logo-box">
+              <image wx:if="{{post.authorAvatar}}" class="logo" src="{{post.authorAvatar}}" mode="aspectFill" />
+              <text wx:else class="logo-text">{{post.authorInitial}}</text>
+            </view>
+            <view class="hero-text">
+              <view class="hero-title" bindtap="handleViewCircle">{{post.circleName}}</view>
+              <view class="hero-meta">
+                <text>{{post.view_count || 0}} 浏览</text>
+                <text class="dot">·</text>
+                <text>{{post.comment_count || 0}} 评论</text>
+              </view>
+            </view>
+          </view>
+          <view class="join-btn" bindtap="handleViewCircle">查看圈子</view>
+        </view>
+      </view>
+
+      <view class="tabs">
+        <view class="tab {{activeTab === 'posts' ? 'active' : ''}}" data-tab="posts" bindtap="handleSwitchTab">帖子</view>
+        <view class="tab" data-tab="rules" bindtap="handleSwitchTab">规则</view>
+        <view class="tab" data-tab="members" bindtap="handleSwitchTab">成员</view>
+        <view class="tab" data-tab="resources" bindtap="handleSwitchTab">资源</view>
+      </view>
+
+      <view class="content-wrap">
+        <view class="post-card">
+          <view class="author-row">
+            <view class="author-left">
+              <image wx:if="{{post.authorAvatar}}" class="author-avatar" src="{{post.authorAvatar}}" mode="aspectFill" />
+              <view wx:else class="author-avatar avatar-fallback">{{post.authorInitial}}</view>
+              <view class="author-text">
+                <text class="author-name" bindtap="handleViewAuthor">{{post.authorName}}</text>
+                <text class="author-time">{{post.createdAt}} · 精选</text>
+              </view>
+            </view>
+            <view class="post-tag">帖子</view>
+          </view>
+
+          <view class="post-title">{{post.title || '未命名帖子'}}</view>
+          <view class="post-content">{{post.content}}</view>
+
+          <view class="post-images" wx:if="{{post.images && post.images.length}}">
+            <block wx:for="{{post.images}}" wx:key="index">
+              <image class="post-image" src="{{item}}" mode="aspectFill" show-menu-by-longpress="{{true}}" />
+            </block>
+          </view>
+
+          <view class="post-actions">
+            <view class="action">
+              <image class="action-icon" src="/assets/icons/heart-outline.svg" mode="aspectFit" />
+              <text>{{post.like_count || 0}}</text>
+            </view>
+            <view class="action">
+              <image class="action-icon" src="/assets/icons/comment.svg" mode="aspectFit" />
+              <text>{{post.comment_count || 0}}</text>
+            </view>
+            <view class="bookmark">
+              <image class="action-icon" src="/assets/icons/bookmark-muted.svg" mode="aspectFit" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view class="empty" wx:if="{{!loading && !post && !error}}">
+      <text>未找到帖子内容</text>
+    </view>
+  </scroll-view>
+
+  <view class="fab" bindtap="handleQuickPublish">
+    <image class="fab-icon" src="/assets/icons/edit-square-white.svg" mode="aspectFit" />
+  </view>
+</view>
+
+<profile-completion-sheet />

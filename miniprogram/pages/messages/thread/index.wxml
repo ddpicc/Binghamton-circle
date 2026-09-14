@@ -1,0 +1,72 @@
+<view class="page">
+  <nav-header title="{{title}}" show-back="{{true}}" />
+
+  <view class="container">
+    <scroll-view
+      class="messages-scroll"
+      scroll-y
+      enable-back-to-top
+      scroll-with-animation
+      scroll-into-view="{{scrollIntoView}}"
+      upper-threshold="40"
+      bindscrolltoupper="handleLoadMore"
+    >
+      <view class="load-more" wx:if="{{hasMore}}">
+        <text bindtap="handleLoadMore">点击加载更多</text>
+      </view>
+
+      <view class="empty" wx:if="{{!loading && messages.length === 0}}">
+        <text class="empty-icon">💬</text>
+        <text class="empty-text">开始和对方聊天吧～</text>
+      </view>
+
+      <block wx:for="{{messages}}" wx:key="id">
+        <view
+          class="message-item {{item.sender.id === currentUserId ? 'self' : 'other'}}"
+          id="message-{{item.id}}"
+        >
+          <view class="avatar">
+            <image
+              wx:if="{{item.sender.avatar}}"
+              class="avatar-image"
+              src="{{item.sender.avatar}}"
+              mode="aspectFill"
+            />
+            <view wx:else class="avatar-placeholder">
+              {{item.sender.nickname ? item.sender.nickname[0] : '用户'}}
+            </view>
+          </view>
+          <view class="bubble">
+            <text class="content">{{item.content}}</text>
+            <text class="timestamp">{{item.createdAt}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+
+    <view class="input-bar">
+      <input
+        class="message-input"
+        placeholder="说点什么..."
+        value="{{inputValue}}"
+        confirm-type="send"
+        bindinput="handleInput"
+        bindconfirm="handleSend"
+      />
+      <button
+        class="send-button"
+        size="mini"
+        type="primary"
+        loading="{{sending}}"
+        bindtap="handleSend"
+      >发送</button>
+    </view>
+  </view>
+
+  <view class="error" wx:if="{{error}}">
+    <text class="error-text">{{error}}</text>
+    <button class="retry-button" size="mini" bindtap="handleRetry">重试</button>
+  </view>
+</view>
+
+<profile-completion-sheet />

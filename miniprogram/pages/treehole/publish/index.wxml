@@ -1,0 +1,47 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="close-btn" bindtap="handleClose">×</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y>
+    <view class="container" style="padding-top: {{safeTop + 64}}px;">
+      <view class="tips-card">
+        <view class="tips-title">发布动态</view>
+        <view class="tips-desc">记录此刻的想法，轻松分享心声</view>
+      </view>
+
+      <view class="card composer-card">
+        <textarea
+          class="content-input"
+          placeholder="记录此刻的想法或故事..."
+          placeholder-class="placeholder"
+          maxlength="500"
+          value="{{content}}"
+          bindinput="handleContentInput"
+          show-confirm-bar="false"
+        />
+        <view class="counter">{{content.length}} / 500</view>
+
+        <view class="uploader">
+          <image-uploader value="{{images}}" max="9" auto-upload="{{false}}" bind:change="handleImageChange" />
+          <view class="uploader-hint">最多选择 9 张图片，单张不超过 10MB</view>
+          <view class="image-count" wx:if="{{images.length}}">已选择 {{images.length}} 张</view>
+        </view>
+      </view>
+
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <view class="footer">
+    <button class="submit-btn" loading="{{submitting}}" bindtap="handleSubmit">
+      {{submitting ? '发布中...' : '发布'}}
+    </button>
+  </view>
+</view>
+
+<profile-completion-sheet />

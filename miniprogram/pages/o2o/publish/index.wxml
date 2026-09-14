@@ -1,0 +1,272 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="close-btn" bindtap="handleBack">×</text>
+        <text class="top-title">发布闲置</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y>
+    <view class="container" style="padding-top: {{safeTop + 64}}px;">
+      <view class="photo-grid">
+        <view wx:if="{{images.length < 9}}" class="photo-cell add-cell" bindtap="handleChooseImages">
+          <image class="add-icon" src="/assets/icons/add-a-photo-filled.svg" mode="aspectFit" />
+          <text class="add-text">{{uploading ? '上传中...' : '添加图片'}}</text>
+        </view>
+        <view
+          wx:for="{{imageSlots}}"
+          wx:key="index"
+          class="photo-cell {{item ? 'photo-filled' : 'photo-empty'}}"
+          data-index="{{index}}"
+          bindtap="handlePreviewImage"
+        >
+          <image wx:if="{{item}}" class="photo" src="{{item}}" mode="aspectFill" />
+          <view wx:else class="photo-placeholder">图片</view>
+          <view wx:if="{{item}}" class="remove" data-index="{{index}}" catchtap="handleRemoveImage">×</view>
+        </view>
+      </view>
+      <view class="photo-tip">最多可上传 9 张照片，第一张将作为封面</view>
+
+      <view class="card">
+        <input
+          class="title-input"
+          placeholder="商品名称 (如：二手自行车)"
+          placeholder-class="placeholder"
+          value="{{form.title}}"
+          data-field="title"
+          bindinput="handleInput"
+        />
+      </view>
+
+      <view class="card desc-card">
+        <textarea
+          class="desc-input"
+          placeholder="{{isRentalCategory ? '补充房源亮点、周边配套、是否包水电网等信息...' : '描述一下你的宝贝，包括使用情况、成色、转手原因等...'}}"
+          placeholder-class="placeholder"
+          value="{{form.description}}"
+          data-field="description"
+          bindinput="handleInput"
+        />
+        <view wx:if="{{!isRentalCategory}}" class="tag-row">
+          <view class="tag-chip" bindtap="handleConditionTagTap">#{{conditionText}}</view>
+          <view class="tag-chip">{{tradeMethod === 'pickup' ? '#自提优先' : '#支持邮寄'}}</view>
+        </view>
+      </view>
+
+      <view class="row-grid">
+        <view class="card row-card">
+          <view class="row-left">
+            <image class="row-icon" src="/assets/icons/payments-filled.svg" mode="aspectFit" />
+            <text class="row-title">{{isRentalCategory ? '月租' : '出售价格'}}</text>
+          </view>
+          <view class="price-wrap">
+            <text class="price-symbol">$</text>
+            <input
+              class="price-input"
+              type="digit"
+              placeholder="0.00"
+              placeholder-class="placeholder"
+              value="{{form.price}}"
+              data-field="price"
+              bindinput="handleInput"
+            />
+          </view>
+        </view>
+
+        <picker mode="selector" range="{{categoryOptions}}" range-key="label" value="{{categoryIndex}}" bindchange="handleCategoryChange">
+          <view class="card row-card picker-card">
+            <view class="row-left">
+              <image class="row-icon" src="/assets/icons/category-filled.svg" mode="aspectFit" />
+              <text class="row-title">分类选择</text>
+            </view>
+            <view class="picker-right">
+              <text class="picker-text">{{categoryOptions[categoryIndex] ? categoryOptions[categoryIndex].label : '请选择'}}</text>
+              <image class="arrow-icon" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+            </view>
+          </view>
+        </picker>
+      </view>
+
+      <view wx:if="{{!isRentalCategory}}" class="card">
+        <view class="row-left method-head">
+          <image class="row-icon" src="/assets/icons/handshake-filled.svg" mode="aspectFit" />
+          <text class="row-title">交易方式</text>
+        </view>
+        <view class="method-row">
+          <view class="method-chip {{tradeMethod === 'pickup' ? 'method-chip-active' : ''}}" data-method="pickup" bindtap="handleTradeMethodTap">
+            <image class="method-icon" src="/assets/icons/person-filled.svg" mode="aspectFit" />
+            <text class="method-label">线下自提</text>
+            <text wx:if="{{tradeMethod === 'pickup'}}" class="method-check">✓</text>
+          </view>
+          <view class="method-chip {{tradeMethod === 'delivery' ? 'method-chip-active' : ''}}" data-method="delivery" bindtap="handleTradeMethodTap">
+            <image class="method-icon" src="/assets/icons/local-shipping-filled.svg" mode="aspectFit" />
+            <text class="method-label">快递邮寄</text>
+            <text wx:if="{{tradeMethod === 'delivery'}}" class="method-check">✓</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{isRentalCategory}}" class="card">
+        <view class="row-left method-head">
+          <image class="row-icon" src="/assets/icons/home-filled.svg" mode="aspectFit" />
+          <text class="row-title">房源信息</text>
+        </view>
+        <view class="rental-grid">
+          <view class="rental-field">
+            <text class="rental-label">押金</text>
+            <view class="price-wrap rental-price-wrap">
+              <text class="price-symbol">$</text>
+              <input
+                class="price-input"
+                type="digit"
+                placeholder="0.00"
+                placeholder-class="placeholder"
+                value="{{form.deposit}}"
+                data-field="deposit"
+                bindinput="handleInput"
+              />
+            </view>
+          </view>
+
+          <picker mode="selector" range="{{houseTypes}}" range-key="label" value="{{houseTypeIndex}}" bindchange="handleHouseTypeChange">
+            <view class="rental-field rental-picker">
+              <text class="rental-label">房屋类型</text>
+              <view class="picker-right">
+                <text class="picker-text">{{houseTypes[houseTypeIndex] ? houseTypes[houseTypeIndex].label : '请选择'}}</text>
+                <image class="arrow-icon" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+              </view>
+            </view>
+          </picker>
+
+          <picker mode="selector" range="{{roomConfigs}}" value="{{roomConfigIndex}}" bindchange="handleRoomConfigChange">
+            <view class="rental-field rental-picker">
+              <text class="rental-label">房间配置</text>
+              <view class="picker-right">
+                <text class="picker-text">{{roomConfigs[roomConfigIndex] || '请选择'}}</text>
+                <image class="arrow-icon" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+              </view>
+            </view>
+          </picker>
+
+          <view class="rental-field">
+            <text class="rental-label">面积</text>
+            <view class="rental-inline">
+              <input
+                class="rental-input"
+                type="digit"
+                placeholder="平方米"
+                placeholder-class="placeholder"
+                value="{{form.area}}"
+                data-field="area"
+                bindinput="handleInput"
+              />
+              <text class="rental-unit">㎡</text>
+            </view>
+          </view>
+
+          <view class="rental-field rental-full">
+            <text class="rental-label">楼层</text>
+            <input
+              class="rental-input full"
+              placeholder="例如：5/6 (第5层，共6层)"
+              placeholder-class="placeholder"
+              value="{{form.floor}}"
+              data-field="floor"
+              bindinput="handleInput"
+            />
+          </view>
+
+          <picker mode="selector" range="{{orientations}}" value="{{orientationIndex}}" bindchange="handleOrientationChange">
+            <view class="rental-field rental-picker">
+              <text class="rental-label">朝向</text>
+              <view class="picker-right">
+                <text class="picker-text">{{orientations[orientationIndex] || '请选择'}}</text>
+                <image class="arrow-icon" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+              </view>
+            </view>
+          </picker>
+
+          <picker mode="date" value="{{form.move_in_date}}" bindchange="handleMoveInDateChange">
+            <view class="rental-field rental-picker">
+              <text class="rental-label">入住时间</text>
+              <view class="picker-right">
+                <text class="picker-text">{{form.move_in_date || '请选择日期'}}</text>
+                <image class="arrow-icon" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+              </view>
+            </view>
+          </picker>
+
+          <picker mode="selector" range="{{minLeaseOptions}}" value="{{minLeaseIndex}}" bindchange="handleMinLeaseChange">
+            <view class="rental-field rental-picker">
+              <text class="rental-label">最短租期</text>
+              <view class="picker-right">
+                <text class="picker-text">{{minLeaseOptions[minLeaseIndex] || '请选择'}}</text>
+                <image class="arrow-icon" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+              </view>
+            </view>
+          </picker>
+        </view>
+
+        <view class="facility-section">
+          <text class="rental-label">配套设施</text>
+          <view class="facility-grid">
+            <view
+              wx:for="{{facilityOptions}}"
+              wx:key="*this"
+              class="facility-chip {{form.facilities.indexOf(item) > -1 ? 'facility-chip-active' : ''}}"
+              data-value="{{item}}"
+              bindtap="handleFacilityToggle"
+            >
+              {{item}}
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card extra-card">
+        <input
+          class="extra-input"
+          placeholder="{{isRentalCategory ? '房源位置（小区/街区/靠近哪里）' : '交易地点（选填）'}}"
+          placeholder-class="placeholder"
+          value="{{form.location}}"
+          data-field="location"
+          bindinput="handleInput"
+        />
+        <view class="divider"></view>
+        <input
+          class="extra-input"
+          placeholder="联系方式（微信/手机号）"
+          placeholder-class="placeholder"
+          value="{{form.contact_info}}"
+          data-field="contact_info"
+          bindinput="handleInput"
+        />
+      </view>
+
+      <view class="safety-card">
+        <image class="safety-icon" src="/assets/icons/security-filled.svg" mode="aspectFit" />
+        <view class="safety-main">
+          <view class="safety-title">社区安全贴士</view>
+          <view class="safety-text">为了你的交易安全，建议在校园公共区域面交，发布前请确保商品信息真实准确。</view>
+        </view>
+      </view>
+
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <view class="footer">
+    <view class="agreement">
+      <view class="dot"></view>
+      <text class="agreement-text">同意《宾大校园二手交易协议》</text>
+    </view>
+    <button class="submit-btn" loading="{{saving}}" bindtap="handleSubmit">
+      {{saving ? '发布中...' : '确认发布'}}
+      <image class="submit-icon" src="/assets/icons/rocket-launch-filled.svg" mode="aspectFit" />
+    </button>
+  </view>
+</view>
+
+<profile-completion-sheet />

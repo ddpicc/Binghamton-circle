@@ -1,0 +1,83 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/notices/list/index",
+    "pages/notices/detail/index",
+    "pages/notices/edit/index",
+    "pages/o2o/list/index",
+    "pages/o2o/detail/index",
+    "pages/o2o/publish/index",
+    "pages/treehole/list/index",
+    "pages/treehole/detail/index",
+    "pages/treehole/publish/index",
+    "pages/circles/list/index",
+    "pages/circles/following/index",
+    "pages/circles/detail/index",
+    "pages/circles/manage/index",
+    "pages/profile/index/index",
+    "pages/profile/posts/index",
+    "pages/profile/favorites/index",
+    "pages/profile/admin-banner/index",
+    "pages/profile/admin-emails/index",
+    "pages/profile/onboarding/index",
+    "pages/profile/edit/index",
+    "pages/profile/password/index",
+    "pages/auth/email-verify/index",
+    "pages/activities/index",
+    "pages/activities/detail/index",
+    "pages/activities/edit/index",
+    "pages/users/detail/index",
+    "pages/messages/thread/index",
+    "pages/posts/detail/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "Binghamton Circle",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f6f8fb"
+  },
+  "usingComponents": {
+    "profile-completion-sheet": "/components/profile-completion-sheet/index"
+  },
+  "tabBar": {
+    "color": "#8a9a8e",
+    "selectedColor": "#0f5f34",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "assets/tabbar/home-inactive-v3.png",
+        "selectedIconPath": "assets/tabbar/home-active-v3.png"
+      },
+      {
+        "pagePath": "pages/treehole/list/index",
+        "text": "树洞",
+        "iconPath": "assets/tabbar/treehole-inactive-v3.png",
+        "selectedIconPath": "assets/tabbar/treehole-active-v3.png"
+      },
+      {
+        "pagePath": "pages/circles/following/index",
+        "text": "圈子",
+        "iconPath": "assets/tabbar/circle-inactive-v3.png",
+        "selectedIconPath": "assets/tabbar/circle-active-v3.png"
+      },
+      {
+        "pagePath": "pages/o2o/list/index",
+        "text": "闲置",
+        "iconPath": "assets/tabbar/market-inactive-v3.png",
+        "selectedIconPath": "assets/tabbar/market-active-v3.png"
+      },
+      {
+        "pagePath": "pages/profile/index/index",
+        "text": "我的",
+        "iconPath": "assets/tabbar/profile-inactive-v3.png",
+        "selectedIconPath": "assets/tabbar/profile-active-v3.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

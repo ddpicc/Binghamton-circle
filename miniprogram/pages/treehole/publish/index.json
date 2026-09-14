@@ -1,0 +1,6 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "image-uploader": "../../../components/image-uploader/index"
+  }
+}

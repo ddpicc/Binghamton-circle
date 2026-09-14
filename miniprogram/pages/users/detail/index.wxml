@@ -1,0 +1,44 @@
+<view class="page">
+  <nav-header title="用户资料" show-back="{{true}}" />
+
+  <scroll-view class="scroll" scroll-y>
+    <view class="container">
+      <view class="card" wx:if="{{!loading && user}}">
+        <view class="profile">
+          <view class="avatar">
+            <image
+              wx:if="{{user.avatar}}"
+              class="avatar-img"
+              src="{{user.avatar}}"
+              mode="aspectFill"
+            />
+            <view wx:else class="avatar-fallback">
+              {{user.nickname ? user.nickname[0] : '用户'}}
+            </view>
+          </view>
+          <view class="info">
+            <text class="name">{{user.nickname || user.username}}</text>
+            <text class="meta">加入于 {{user.joinedAt}}</text>
+            <text class="meta" wx:if="{{user.school}}">{{user.school}} {{user.major}}</text>
+            <text class="bio" wx:if="{{user.bio}}">{{user.bio}}</text>
+          </view>
+        </view>
+
+        <button class="message-btn" type="primary" bindtap="handleSendMessage">
+          <view class="btn-text">发送私信</view>
+          <view class="badge" wx:if="{{hasUnread}}"></view>
+        </button>
+      </view>
+
+      <view class="loading" wx:if="{{loading}}">
+        <text>加载中...</text>
+      </view>
+
+      <view class="empty" wx:if="{{!loading && !user}}">
+        <text class="empty-text">未找到该用户</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

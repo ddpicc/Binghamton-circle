@@ -1,0 +1,118 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop + 28}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <image class="top-avatar" src="{{topAvatar}}" mode="aspectFill" />
+        <text class="nav-title">Binghamton Circle</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y enable-back-to-top bindscrolltolower="loadMore">
+    <view class="container" style="padding-top: {{safeTop + 88}}px;">
+      <view class="hero-card">
+        <text class="hero-tag">避风港</text>
+        <text class="hero-title">树洞</text>
+        <text class="hero-desc">在校园绿洲中分享你的想法。</text>
+        <view class="hero-blur"></view>
+      </view>
+
+      <scroll-view class="chip-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+        <view class="chip-list">
+          <view
+            wx:for="{{filterOptions}}"
+            wx:key="id"
+            class="chip {{activeFilter === item.id ? 'chip-active' : ''}}"
+            data-filter="{{item.id}}"
+            bindtap="handleFilterTap"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="feed-list" wx:if="{{displayPosts.length}}">
+        <view wx:for="{{displayPosts}}" wx:key="id" class="feed-card" data-id="{{item.id}}">
+          <view class="feed-head">
+            <view class="author-wrap">
+              <view class="author-avatar {{item.moodClass}}">
+                <image class="author-avatar-icon" src="{{item.avatarIcon}}" mode="aspectFit" />
+              </view>
+              <view class="author-meta">
+                <text class="author-name">{{item.displayName}}</text>
+                <text class="author-time">{{item.createdText}}</text>
+              </view>
+            </view>
+            <image
+              wx:if="{{item.canDelete}}"
+              class="more-icon"
+              src="/assets/icons/more-horiz-muted.svg"
+              mode="aspectFit"
+              data-id="{{item.id}}"
+              bindtap="handleMoreTap"
+            />
+          </view>
+
+          <text class="feed-content {{item.quote ? 'feed-content-quote' : ''}}">{{item.content}}</text>
+          <view class="feed-images" wx:if="{{item.images && item.images.length}}">
+            <block wx:for="{{item.images}}" wx:key="index">
+              <image class="feed-image" src="{{item}}" mode="aspectFill" show-menu-by-longpress="{{true}}" />
+            </block>
+          </view>
+
+          <view class="feed-actions">
+            <view class="action-item {{item.is_liked ? 'action-item-liked' : ''}}" data-id="{{item.id}}" bindtap="handleLike">
+              <image
+                class="action-icon"
+                src="{{item.is_liked ? '/assets/icons/favorite-filled-red-material.svg' : '/assets/icons/favorite-outline-muted.svg'}}"
+                mode="aspectFit"
+              />
+              <text class="action-text">{{item.like_count || 0}}</text>
+            </view>
+            <view class="action-item" data-id="{{item.id}}" bindtap="handleToggleComments">
+              <image class="action-icon" src="/assets/icons/chat-bubble-muted.svg" mode="aspectFit" />
+              <text class="action-text">{{item.comment_count || 0}}</text>
+            </view>
+            <image class="action-icon share-icon" src="/assets/icons/share-muted.svg" mode="aspectFit" />
+          </view>
+
+          <view wx:if="{{commentPostId === item.id}}" class="comments">
+            <view wx:if="{{comments[item.id] && comments[item.id].length}}" class="comment-list">
+              <view wx:for="{{comments[item.id]}}" wx:for-item="comment" wx:key="id" class="comment-item">
+                <view class="comment-avatar {{comment.avatarClass}}">{{comment.avatarText}}</view>
+                <view class="comment-body">
+                  <view class="comment-name">{{comment.displayName}}</view>
+                  <view class="comment-content">{{comment.content}}</view>
+                  <view class="comment-time">{{comment.createdText}}</view>
+                </view>
+              </view>
+            </view>
+            <empty-state wx:else title="暂无评论" description="快来抢沙发" />
+            <view class="comment-input">
+              <input class="comment-field" placeholder="写下你的评论..." value="{{commentContent}}" bindinput="handleCommentInput" />
+              <button class="comment-send" size="mini" type="primary" bindtap="handleSubmitComment">发送</button>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <empty-state wx:elif="{{!loading}}" title="暂无内容" description="做第一个分享的人吧" />
+
+      <view class="loading" wx:if="{{loading}}">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+
+      <view class="list-footer" wx:if="{{!hasMore && displayPosts.length}}">
+        <view class="no-more">没有更多内容了</view>
+      </view>
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <view class="fab" bindtap="handleNavigateToPublish">
+    <image class="fab-icon" src="/assets/icons/edit-square-white.svg" mode="aspectFit" />
+  </view>
+</view>
+
+<profile-completion-sheet />

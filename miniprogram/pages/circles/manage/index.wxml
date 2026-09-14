@@ -1,0 +1,170 @@
+<view class="page">
+  <view wx:if="{{isCreateMode}}" class="top-bar" style="padding-top: {{safeTop}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="close-btn" bindtap="handleBack">×</text>
+        <text class="top-title">创建圈子</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="nav-bar" style="padding-top: {{safeTop}}px;">
+    <view class="nav-inner">
+      <view class="nav-left" bindtap="handleBack">
+        <text class="nav-back-text">‹</text>
+      </view>
+      <view class="nav-title">{{isCreateMode ? '创建圈子' : '圈子管理'}}</view>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y enable-back-to-top style="padding-top: {{contentTop}}px;">
+    <view class="container" wx:if="{{isCreateMode || (circle && isAdmin)}}">
+      <view wx:if="{{isCreateMode || activeTab === 'basic'}}" class="create-form">
+        <view class="create-cover-card" bindtap="handleChooseCover">
+          <image wx:if="{{form.cover_image}}" class="create-cover-image" mode="aspectFit" src="{{form.cover_image}}" />
+          <view wx:else class="create-cover-placeholder">
+            <view class="create-cover-icon-wrap">
+              <image class="create-cover-icon" src="/assets/icons/add-a-photo-filled.svg" mode="aspectFit" />
+            </view>
+            <text class="create-cover-title">上传圈子封面</text>
+            <text class="create-cover-hint">建议尺寸 16:9，小于 5MB</text>
+          </view>
+        </view>
+
+        <view class="create-avatar-card" bindtap="handleChooseIcon">
+          <view class="create-avatar-core">
+            <image wx:if="{{form.icon_image}}" class="create-avatar-image" mode="aspectFill" src="{{form.icon_image}}" />
+            <view wx:else class="create-avatar-placeholder">
+              <image class="create-avatar-icon" src="/assets/icons/add-a-photo-filled.svg" mode="aspectFit" />
+            </view>
+          </view>
+          <text class="create-avatar-label">圈子头像</text>
+        </view>
+
+        <view class="create-form-section">
+          <view class="create-card">
+            <view class="create-label">圈子名称</view>
+            <input class="create-input" placeholder="输入响亮的名称..." value="{{form.name}}" data-field="name" bindinput="handleInput" maxlength="30" />
+          </view>
+
+          <view class="create-card">
+            <view class="create-label">分类选择</view>
+            <view class="create-tag-list">
+              <view class="create-tag-item {{categoryIndex === index ? 'active' : ''}}" wx:for="{{categories}}" wx:key="id" data-index="{{index}}" bindtap="handleCategorySelect">
+                {{item.name}}
+              </view>
+            </view>
+          </view>
+
+          <view class="create-card">
+            <view class="create-label">圈子简介</view>
+            <textarea class="create-textarea" placeholder="在这里描述您的圈子，让大家了解这里的氛围..." value="{{form.description}}" data-field="description" bindinput="handleInput" maxlength="200" auto-height />
+          </view>
+
+          <view class="create-card">
+            <view class="create-switch-row">
+              <view class="create-switch-left">
+                <image class="create-switch-icon" src="/assets/icons/public.svg" mode="aspectFit" />
+                <view class="create-switch-text">
+                  <view class="create-switch-title">公开圈子</view>
+                  <view class="create-switch-desc">所有人均可搜索并加入</view>
+                </view>
+              </view>
+              <view class="create-switch-wrapper {{!form.is_private ? 'on' : ''}}" bindtap="handlePublicToggle">
+                <view class="create-switch-knob"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="create-safe-bottom"></view>
+      </view>
+
+      <view wx:if="{{!isCreateMode}}">
+        <view class="tabs card">
+          <view class="tab {{activeTab === 'basic' ? 'active' : ''}}" data-tab="basic" bindtap="handleTabChange">基本信息</view>
+          <view class="tab {{activeTab === 'members' ? 'active' : ''}}" data-tab="members" bindtap="handleTabChange">成员</view>
+          <view class="tab {{activeTab === 'pending' ? 'active' : ''}}" data-tab="pending" bindtap="handleTabChange">待审核</view>
+        </view>
+
+        <view wx:if="{{activeTab === 'basic'}}" class="card section">
+          <view class="field">
+            <view class="label">圈子名称</view>
+            <input class="input" placeholder="请输入圈子名称" value="{{form.name}}" data-field="name" bindinput="handleInput" />
+          </view>
+          <view class="field">
+            <view class="label">圈子描述</view>
+            <textarea class="textarea" placeholder="简要介绍圈子" value="{{form.description}}" data-field="description" bindinput="handleInput" />
+          </view>
+          <view class="field">
+            <view class="label">分类</view>
+            <picker mode="selector" range="{{categories}}" range-key="name" value="{{categoryIndex >= 0 ? categoryIndex : 0}}" bindchange="handleCategoryChange">
+              <view class="picker">{{displayCategory}}</view>
+            </picker>
+          </view>
+          <view class="field">
+            <view class="label">成员上限</view>
+            <input class="input" placeholder="不限留空" value="{{form.max_members}}" data-field="max_members" bindinput="handleInput" type="number" />
+          </view>
+          <view class="field">
+            <view class="label">圈子规则</view>
+            <textarea class="textarea" placeholder="建议列出圈内规则" value="{{form.rules}}" data-field="rules" bindinput="handleInput" />
+          </view>
+          <view class="field">
+            <view class="label">封面</view>
+            <view class="cover-uploader" bindtap="handleChooseCover">
+              <image wx:if="{{form.cover_image}}" mode="aspectFill" src="{{form.cover_image}}" />
+              <view wx:else class="cover-placeholder">点击上传</view>
+            </view>
+          </view>
+          <button class="save" type="primary" loading="{{saving}}" bindtap="handleSave">保存修改</button>
+        </view>
+
+        <view wx:if="{{activeTab === 'members'}}" class="card section">
+          <view class="section-title">成员列表 ({{members.length}})</view>
+          <view class="member" wx:for="{{members}}" wx:key="id">
+            <view class="avatar">{{item.avatarInitial}}</view>
+            <view class="info">
+              <view class="name">{{item.displayName}}</view>
+              <view class="meta">角色：{{item.roleLabel}}</view>
+            </view>
+            <button class="danger" size="mini" data-member-id="{{item.user_id}}" bindtap="handleRemoveMember" wx:if="{{item.role !== 'creator'}}">移除</button>
+          </view>
+          <view class="loading" wx:if="{{membersLoading}}">加载成员...</view>
+          <view class="empty" wx:if="{{!members.length && !membersLoading}}">暂无成员数据</view>
+        </view>
+
+        <view wx:if="{{activeTab === 'pending'}}" class="card section">
+          <view class="section-title">待审核申请 ({{pending.length}})</view>
+          <view class="pending" wx:for="{{pending}}" wx:key="id">
+            <view class="info">
+              <view class="name">{{(item.user && item.user.username) || '用户'}} </view>
+              <view class="meta">申请时间：{{item.displayTime || item.created_at}}</view>
+            </view>
+            <view class="actions">
+              <button class="approve" size="mini" data-member-id="{{item.user_id}}" bindtap="handleApprove">通过</button>
+              <button class="danger" size="mini" data-member-id="{{item.user_id}}" bindtap="handleReject">拒绝</button>
+            </view>
+          </view>
+          <view class="loading" wx:if="{{pendingLoading}}">加载中...</view>
+          <view class="empty" wx:if="{{!pending.length && !pendingLoading}}">暂无待处理申请</view>
+        </view>
+      </view>
+    </view>
+
+    <empty-state wx:else title="无权限" description="只有圈子管理员可以访问此页面" />
+  </scroll-view>
+
+  <view wx:if="{{isCreateMode}}" class="create-bottom-bar">
+    <button class="create-cancel-btn" bindtap="handleBack">
+      <text class="create-cancel-x">×</text>
+      <text class="create-cancel-text">取消</text>
+    </button>
+    <button class="create-submit-btn" loading="{{saving}}" bindtap="handleSave">
+      <text class="create-submit-text">立即创建</text>
+    </button>
+  </view>
+</view>
+
+<profile-completion-sheet />

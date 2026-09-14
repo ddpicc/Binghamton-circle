@@ -1,0 +1,57 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="close-btn" bindtap="handleBack">×</text>
+        <text class="top-title">物品详情</text>
+      </view>
+      <view wx:if="{{canManage}}" class="more-btn" bindtap="handleMoreTap">
+        <image class="more-icon" src="/assets/icons/more-horiz-muted.svg" mode="aspectFit" />
+      </view>
+    </view>
+  </view>
+  <scroll-view class="scroll" scroll-y>
+    <view wx:if="{{item}}" class="container" style="padding-top: {{safeTop + 64}}px;">
+      <view class="gallery" wx:if="{{item.images && item.images.length}}">
+        <swiper class="gallery-swiper" indicator-dots autoplay interval="4000">
+          <block wx:for="{{item.images}}" wx:key="index">
+            <swiper-item>
+              <image class="gallery-image" mode="aspectFit" src="{{item}}" />
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+
+      <view class="section">
+        <view class="title-row">
+          <text class="title">{{item.title}}</text>
+          <text class="price">¥{{item.price}}</text>
+        </view>
+        <view class="meta">{{item.condition || '成色不详'}} · {{item.location}}</view>
+        <view class="meta">{{item.created_at}}</view>
+        <view class="tags" wx:if="{{item.tags && item.tags.length}}">
+          <text class="tag" wx:for="{{item.tags}}" wx:key="index" wx:if="{{index < 5}}">{{item}}</text>
+        </view>
+      </view>
+
+      <view class="section">
+        <view class="section-title">物品描述</view>
+        <view class="content">{{item.description}}</view>
+      </view>
+
+      <view class="section">
+        <view class="section-title">联系信息</view>
+        <view class="content">
+          <view wx:if="{{item.contact.wechat}}">微信：{{item.contact.wechat}}</view>
+          <view wx:if="{{item.contact.phone}}">电话：{{item.contact.phone}}</view>
+          <view wx:if="{{item.contact.email}}">邮箱：{{item.contact.email}}</view>
+          <view wx:if="{{item.contact.text}}">{{item.contact.text}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else class="loading" style="padding-top: {{safeTop + 64}}px;">加载中...</view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

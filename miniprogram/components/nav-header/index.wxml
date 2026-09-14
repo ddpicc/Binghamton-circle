@@ -1,0 +1,12 @@
+<view class="nav-header" style="background: {{background}}; height: {{navHeight}}px;">
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+  <view class="nav-bar">
+    <view class="nav-left">
+      <button wx:if="{{showBack}}" class="back-btn" bindtap="handleBack">
+        <text class="back-icon">←</text>
+      </button>
+    </view>
+    <view class="nav-title">{{title}}</view>
+    <view class="nav-right"></view>
+  </view>
+</view>

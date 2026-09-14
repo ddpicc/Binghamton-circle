@@ -1,0 +1,282 @@
+@import '../../../styles/theme.wxss';
+
+.page {
+  min-height: 100vh;
+  background: #fafaf5;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background: rgba(250, 250, 245, 0.84);
+  backdrop-filter: blur(18rpx);
+}
+
+.top-inner {
+  height: 64px;
+  padding: 0 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.icon-btn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.back-icon {
+  transform: rotate(180deg);
+}
+
+.scroll {
+  height: 100vh;
+}
+
+.container {
+  padding: 0 28rpx 130rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.search-card {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.search-row {
+  height: 86rpx;
+  display: flex;
+  align-items: center;
+  background: #e8ebe6;
+  border-radius: 40rpx;
+  padding: 0 28rpx;
+}
+
+.search-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 86rpx;
+  font-size: 26rpx;
+  color: #1a1c19;
+  background: transparent;
+  border: none;
+}
+
+.search-input::placeholder {
+  color: #8a968e;
+}
+
+.clear-button {
+  margin-top: 12rpx;
+  align-self: flex-end;
+  background: #f4f4ef;
+  color: #3f4940;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  padding: 0 20rpx;
+}
+
+.stats-card {
+  background: linear-gradient(145deg, #ffffff, #f7faf7);
+  border-radius: 24rpx;
+  padding: 18rpx;
+  box-shadow: 0 10rpx 22rpx rgba(26, 28, 25, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.stats-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.stats-label {
+  font-size: 20rpx;
+  color: #6f7a6f;
+}
+
+.stats-value {
+  font-size: 34rpx;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #004b24;
+}
+
+.divider {
+  width: 1rpx;
+  height: 64rpx;
+  background: #d7e1d7;
+}
+
+.create-button {
+  background: #006633;
+  color: #ffffff;
+  border-radius: 16rpx;
+  font-size: 22rpx;
+  padding: 0 18rpx;
+}
+
+.list-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.circle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.circle-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 22rpx rgba(26, 28, 25, 0.04);
+}
+
+.cover {
+  position: relative;
+  height: 220rpx;
+}
+
+.cover image,
+.cover .cover-fallback {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cover-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0, 102, 51, 0.9), rgba(0, 168, 107, 0.65));
+  color: #ffffff;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.badge-row {
+  position: absolute;
+  top: 14rpx;
+  left: 14rpx;
+  display: flex;
+  gap: 10rpx;
+}
+
+.badge {
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 18rpx;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.badge.private {
+  background: rgba(146, 59, 73, 0.9);
+}
+
+.badge.joined {
+  background: rgba(0, 102, 51, 0.9);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  padding: 20rpx;
+}
+
+.main-row {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+}
+
+.text-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1a1c19;
+}
+
+.desc {
+  font-size: 22rpx;
+  color: #6f7a6f;
+  line-height: 1.5;
+  max-height: 66rpx;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  gap: 20rpx;
+  font-size: 20rpx;
+  color: #8c958d;
+}
+
+.circle-action-btn {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #e8e8e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.circle-action-btn::after {
+  border: none;
+}
+
+.circle-action-symbol {
+  font-size: 40rpx;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.circle-action-symbol.plus {
+  color: #006633;
+}
+
+.circle-action-symbol.minus {
+  color: #9b2c2c;
+  transform: translateY(-2rpx);
+}

@@ -1,0 +1,144 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="close-btn" bindtap="onBack">×</text>
+        <text class="top-title">发起活动</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y>
+    <view class="container">
+      <view class="cover-section" bindtap="handleChooseCover">
+        <image wx:if="{{form.cover_image}}" class="cover-image" src="{{form.cover_image}}" mode="aspectFit" />
+        <view wx:else class="cover-placeholder">
+          <view class="cover-icon-wrap">
+            <image class="cover-icon" src="/assets/icons/add-a-photo-filled.svg" mode="aspectFit" />
+          </view>
+          <text class="cover-title">上传活动封面</text>
+          <text class="cover-hint">建议尺寸 16:9，小于 5MB</text>
+        </view>
+      </view>
+
+      <view class="card">
+        <text class="label">活动名称</text>
+        <input class="input" placeholder="输入响亮的活动标题..." value="{{form.title}}" bindinput="handleTitleChange" maxlength="40" />
+      </view>
+
+      <view class="card">
+        <text class="label">活动类型</text>
+        <view class="tag-list">
+          <view
+            class="tag-item {{form.category === item ? 'active' : ''}}"
+            wx:for="{{categories}}"
+            wx:key="index"
+            data-index="{{index}}"
+            bindtap="handleCategorySelect"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="time-grid">
+          <view class="time-col">
+            <text class="label">开始时间</text>
+            <view class="time-picker-group">
+              <picker mode="date" value="{{form.start_date}}" bindchange="handleStartDateChange">
+                <view class="time-picker">
+                  <image class="time-icon" src="/assets/icons/event-primary.svg" mode="aspectFit" />
+                  <text class="time-text">{{startDateLabel}}</text>
+                </view>
+              </picker>
+              <picker mode="time" value="{{form.start_time_of_day}}" bindchange="handleStartTimeChange">
+                <view class="time-picker">
+                  <image class="time-icon" src="/assets/icons/event-primary.svg" mode="aspectFit" />
+                  <text class="time-text">{{startTimeLabel}}</text>
+                </view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="time-col">
+            <text class="label">结束时间</text>
+            <view class="time-picker-group">
+              <picker mode="date" value="{{form.end_date}}" bindchange="handleEndDateChange">
+                <view class="time-picker">
+                  <image class="time-icon" src="/assets/icons/event-primary.svg" mode="aspectFit" />
+                  <text class="time-text">{{endDateLabel}}</text>
+                </view>
+              </picker>
+              <picker mode="time" value="{{form.end_time_of_day}}" bindchange="handleEndTimeChange">
+                <view class="time-picker">
+                  <image class="time-icon" src="/assets/icons/event-primary.svg" mode="aspectFit" />
+                  <text class="time-text">{{endTimeLabel}}</text>
+                </view>
+              </picker>
+            </view>
+          </view>
+        </view>
+
+        <view class="location-block">
+          <text class="label">活动地点</text>
+          <view class="location-input-wrap">
+            <image class="location-icon" src="/assets/icons/location-on-primary-soft.svg" mode="aspectFit" />
+            <input class="location-input" placeholder="在哪里举行？" value="{{form.location}}" bindinput="handleLocationChange" />
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="limit-row">
+          <view class="limit-copy">
+            <text class="limit-title">人数限制</text>
+            <text class="limit-subtitle">开启后将限制报名人数</text>
+          </view>
+          <view class="switch-track {{form.limit_enabled ? 'on' : ''}}" bindtap="handleToggleLimit">
+            <view class="switch-knob"></view>
+          </view>
+        </view>
+
+        <view class="stepper-row">
+          <text class="stepper-label">最多人数</text>
+          <view class="stepper-actions">
+            <view class="step-btn minus" bindtap="handleDecreaseLimit">−</view>
+            <input
+              class="step-input"
+              type="number"
+              value="{{form.max_participants}}"
+              bindinput="handleLimitInput"
+              bindblur="handleLimitBlur"
+            />
+            <view class="step-btn plus" bindtap="handleIncreaseLimit">+</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <text class="label">活动详情</text>
+        <textarea
+          class="textarea"
+          placeholder="详细描述一下你的活动内容，让大家更有动力参与..."
+          value="{{form.description}}"
+          bindinput="handleDescriptionChange"
+          maxlength="500"
+        />
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-bar">
+    <button class="cancel-btn" bindtap="handleCancel">
+      <text class="cancel-x">×</text>
+      <text class="cancel-text">取消</text>
+    </button>
+    <button class="publish-btn" loading="{{saving}}" bindtap="handleSubmit">
+      <image class="publish-icon" src="/assets/icons/rocket-launch-filled.svg" mode="aspectFit" />
+      <text class="publish-text">{{saving ? '发布中' : '立即发布'}}</text>
+    </button>
+  </view>
+</view>
+
+<profile-completion-sheet />

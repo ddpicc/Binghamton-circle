@@ -1,0 +1,12 @@
+<!-- 微信用户信息获取组件 -->
+<view class="wechat-user-info">
+  <button
+    wx:if="{{show}}"
+    class="wechat-btn {{type}} {{size}}"
+    loading="{{loading}}"
+    bindtap="getUserProfile"
+  >
+    <image class="wechat-icon" src="/images/wechat-icon.png" mode="aspectFit" />
+    <text>{{loading ? '授权中...' : '微信一键登录'}}</text>
+  </button>
+</view>

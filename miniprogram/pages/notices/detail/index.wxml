@@ -1,0 +1,20 @@
+<view class="page">
+  <nav-header title="通知详情" show-back="true" />
+  <scroll-view class="scroll" scroll-y>
+    <view wx:if="{{notice}}" class="container">
+      <view class="badge">{{notice.category || '通知'}}</view>
+      <view class="title">{{notice.title}}</view>
+      <view class="meta">{{notice.created_at}}</view>
+      <view class="content" wx:if="{{notice.content}}">
+        <rich-text nodes="{{notice.content}}"></rich-text>
+      </view>
+      <view wx:if="{{isAdmin}}" class="actions">
+        <button type="primary" bindtap="handleEdit">编辑</button>
+        <button type="warn" bindtap="handleDelete">删除</button>
+      </view>
+    </view>
+    <view wx:else class="loading">加载中...</view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

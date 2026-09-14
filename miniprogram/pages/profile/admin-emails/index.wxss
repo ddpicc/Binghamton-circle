@@ -1,0 +1,63 @@
+.page { min-height: 100vh; background: #fafaf5; }
+.scroll { height: 100vh; }
+.container { padding: 124rpx 28rpx 48rpx; }
+.section {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 10rpx 24rpx rgba(26, 28, 25, 0.05);
+}
+.section-title {
+  font-size: 28rpx;
+  color: #1a1c19;
+  font-weight: 700;
+  margin-bottom: 18rpx;
+}
+.input {
+  height: 84rpx;
+  background: #f7f8f5;
+  border-radius: 16rpx;
+  padding: 0 22rpx;
+  font-size: 26rpx;
+  color: #1a1c19;
+  margin-bottom: 14rpx;
+}
+.save-btn {
+  margin-top: 8rpx;
+  border-radius: 18rpx;
+  background: #0f5f34;
+  color: #fff;
+}
+.loading, .empty {
+  padding: 40rpx 0;
+  text-align: center;
+  color: #6f7a6f;
+  font-size: 26rpx;
+}
+.item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #edf1ec;
+}
+.item-card:last-child { border-bottom: none; }
+.item-main { flex: 1; min-width: 0; }
+.item-email {
+  font-size: 26rpx;
+  color: #1a1c19;
+  font-weight: 700;
+  word-break: break-all;
+}
+.item-note {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #6f7a6f;
+}
+.delete-btn {
+  margin-left: 20rpx;
+  color: #d14343;
+  font-size: 24rpx;
+  font-weight: 700;
+}

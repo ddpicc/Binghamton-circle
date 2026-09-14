@@ -1,0 +1,128 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop + 28}}px;">
+    <view class="top-inner">
+      <view class="top-left">
+        <image class="top-avatar" src="{{topAvatar}}" mode="aspectFill" />
+        <text class="top-title">Binghamton Circle</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y enhanced show-scrollbar="{{false}}" bindscrolltolower="onReachBottom">
+    <view class="container" style="padding-top: {{safeTop + 88}}px;">
+      <view class="hero" bindtap="onHeroTap">
+        <image class="hero-cover" src="{{hero.cover}}" mode="aspectFill" />
+        <view class="hero-mask"></view>
+        <view class="hero-content">
+          <view class="hero-badge">热门推荐</view>
+          <text class="hero-title">{{hero.title}}</text>
+          <text class="hero-subtitle">{{hero.subtitle}}</text>
+        </view>
+      </view>
+
+      <view class="date-header">
+        <text class="date-title">选择日期</text>
+        <text class="date-sub">本周</text>
+      </view>
+      <scroll-view class="date-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+        <view class="date-list">
+          <view
+            wx:for="{{weekDates}}"
+            wx:key="dateKey"
+            class="date-item {{selectedDateKey === item.dateKey ? 'date-item-active' : ''}}"
+            data-date="{{item.dateKey}}"
+            bindtap="onDateTap"
+          >
+            <text class="date-week">{{item.weekText}}</text>
+            <text class="date-day">{{item.dayText}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="section-head">
+        <text class="section-title">为你推荐</text>
+      </view>
+
+      <view class="events-list" wx:if="{{displayActivities.length}}">
+        <view class="event-card" wx:for="{{displayActivities}}" wx:key="id" data-id="{{item.id}}" bindtap="onActivityTap">
+          <view class="event-cover-wrap">
+            <image class="event-cover" src="{{item.cover}}" mode="aspectFill" />
+            <view class="event-state">{{item.statusText}}</view>
+          </view>
+
+          <view class="event-main">
+            <view>
+              <text class="event-title">{{item.title}}</text>
+              <view class="event-meta-row">
+                <image class="meta-icon" src="/assets/icons/event-primary.svg" mode="aspectFit" />
+                <text class="meta-text">{{item.timeText}}</text>
+              </view>
+              <view class="event-meta-row">
+                <image class="meta-icon" src="/assets/icons/location-on-primary-soft.svg" mode="aspectFit" />
+                <text class="meta-text">{{item.locationText}}</text>
+              </view>
+            </view>
+
+            <view class="event-bottom">
+              <view class="people-wrap">
+                <view class="avatar-stack">
+                  <image wx:for="{{item.previewAvatars}}" wx:key="index" wx:for-item="avatar" class="mini-avatar" src="{{avatar}}" mode="aspectFill" />
+                  <view wx:if="{{item.extraCount > 0}}" class="mini-avatar mini-extra">+{{item.extraCount}}</view>
+                </view>
+                <text class="joined-text">{{item.joinedText}}</text>
+              </view>
+              <button
+                class="join-btn {{item.isJoined ? 'join-btn-joined' : ''}}"
+                data-id="{{item.id}}"
+                data-joined="{{item.isJoined}}"
+                catchtap="onJoinTap"
+              >
+                {{item.isJoined ? '已报名' : '立即加入'}}
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:elif="{{loading}}" class="loading-wrap">
+        <text class="loading-text">加载中...</text>
+      </view>
+      <view wx:else class="empty-wrap">
+        <empty-state title="暂无活动" description="目前还没有活动，快来发布第一个活动吧" />
+      </view>
+
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <view class="fab-wrap">
+    <view class="fab" bindtap="onPublishActivity">
+      <image class="fab-icon" src="/assets/icons/add-white.svg" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="bottom-nav">
+    <view class="nav-item nav-item-active" data-url="/pages/home/index" bindtap="onTabTap">
+      <image class="nav-icon" src="/assets/tabbar/home-active-v3.png" mode="aspectFit" />
+      <text class="nav-label nav-label-active">首页</text>
+    </view>
+    <view class="nav-item" data-url="/pages/treehole/list/index" bindtap="onTabTap">
+      <image class="nav-icon" src="/assets/tabbar/treehole-inactive-v3.png" mode="aspectFit" />
+      <text class="nav-label">树洞</text>
+    </view>
+    <view class="nav-item" data-url="/pages/circles/following/index" bindtap="onTabTap">
+      <image class="nav-icon" src="/assets/tabbar/circle-inactive-v3.png" mode="aspectFit" />
+      <text class="nav-label">圈子</text>
+    </view>
+    <view class="nav-item" data-url="/pages/o2o/list/index" bindtap="onTabTap">
+      <image class="nav-icon" src="/assets/tabbar/market-inactive-v3.png" mode="aspectFit" />
+      <text class="nav-label">闲置</text>
+    </view>
+    <view class="nav-item" data-url="/pages/profile/index/index" bindtap="onTabTap">
+      <image class="nav-icon" src="/assets/tabbar/profile-inactive-v3.png" mode="aspectFit" />
+      <text class="nav-label">我的</text>
+    </view>
+  </view>
+</view>
+
+<profile-completion-sheet />

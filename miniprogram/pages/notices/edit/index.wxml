@@ -1,0 +1,34 @@
+<view class="page">
+  <nav-header title="{{id ? '编辑通知' : '发布通知'}}" show-back="true" />
+  <scroll-view class="scroll" scroll-y>
+    <view class="container">
+      <view class="form-item">
+        <view class="label">标题</view>
+        <input placeholder="请输入通知标题" value="{{form.title}}" bindinput="handleTitleChange" />
+      </view>
+
+      <view class="form-item">
+        <view class="label">分类</view>
+        <picker mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="handleCategoryChange">
+          <view class="picker">{{form.category}} ▾</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <view class="label">内容</view>
+        <textarea class="textarea" placeholder="请输入通知内容" value="{{form.content}}" bindinput="handleContentChange" />
+      </view>
+
+      <view class="form-item switch">
+        <view class="label">置顶显示</view>
+        <switch checked="{{form.is_pinned}}" bindchange="handlePinnedChange" />
+      </view>
+
+      <button type="primary" loading="{{saving}}" bindtap="handleSubmit">
+        {{saving ? '保存中...' : '保存'}}
+      </button>
+    </view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

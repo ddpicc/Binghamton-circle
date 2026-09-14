@@ -1,0 +1,15 @@
+{
+  "libVersion": "3.10.1",
+  "projectname": "Binghamton-circle",
+  "appid": "wxbde37d86d540f9cf",
+  "setting": {
+    "urlCheck": false,
+    "coverView": true,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "compileHotReLoad": true
+  }
+}

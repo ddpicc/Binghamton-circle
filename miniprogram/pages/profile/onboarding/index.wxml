@@ -1,0 +1,43 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="skip-btn" bindtap="handleSkip">稍后再说</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y>
+    <view class="container" style="padding-top: {{contentTop}}px;">
+      <view class="eyebrow">欢迎加入</view>
+      <view class="title">完善你的社区名片</view>
+      <view class="desc">登录已经完成。补充微信头像和昵称后，社区里会更容易被同学识别。你也可以先跳过，稍后到个人资料里再补。</view>
+
+      <view class="card">
+        <text class="label">头像</text>
+        <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="handleChooseAvatar">
+          <image wx:if="{{avatar}}" class="avatar-preview" src="{{avatar}}" mode="aspectFill" />
+          <view wx:else class="avatar-placeholder">
+            <image class="avatar-icon" src="/assets/icons/person-default-muted.svg" mode="aspectFit" />
+            <text class="avatar-tip">选择微信头像</text>
+          </view>
+        </button>
+      </view>
+
+      <view class="card">
+        <text class="label">昵称</text>
+        <input
+          class="nickname-input"
+          type="nickname"
+          placeholder="请输入你的昵称"
+          value="{{nickname}}"
+          bindinput="handleNicknameInput"
+        />
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-bar">
+    <button class="primary-btn" loading="{{saving}}" bindtap="handleSave">保存并继续</button>
+  </view>
+</view>

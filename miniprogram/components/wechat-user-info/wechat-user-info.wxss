@@ -1,0 +1,53 @@
+.wechat-user-info {
+  display: inline-block;
+}
+
+.wechat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #07c160;
+  color: white;
+  border: none;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  transition: all 0.3s ease;
+}
+
+.wechat-btn::after {
+  border: none;
+}
+
+.wechat-btn.primary {
+  background-color: #07c160;
+}
+
+.wechat-btn.default {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.wechat-btn.size-mini {
+  padding: 12rpx 24rpx;
+  font-size: 24rpx;
+}
+
+.wechat-btn.size-small {
+  padding: 16rpx 32rpx;
+  font-size: 26rpx;
+}
+
+.wechat-btn.size-default {
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+}
+
+.wechat-btn[loading] {
+  opacity: 0.7;
+}
+
+.wechat-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 12rpx;
+}

@@ -1,0 +1,408 @@
+.page {
+  min-height: 100vh;
+  background: #fafaf5;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 30;
+  background: rgba(250, 250, 245, 0.84);
+  backdrop-filter: blur(18rpx);
+}
+
+.top-inner {
+  height: 72rpx;
+  padding: 0 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.top-avatar {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: #e8e8e3;
+}
+
+.nav-title {
+  font-size: 34rpx;
+  color: #004b24;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.action-pill {
+  height: 52rpx;
+  border-radius: 999rpx;
+  padding: 0 12rpx;
+  background: #f0f0ec;
+  border: 1rpx solid #e6e9e4;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon-top,
+.notify-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.pill-divider {
+  width: 1rpx;
+  height: 24rpx;
+  background: #d6ddd5;
+  margin: 0 8rpx;
+}
+
+.scroll {
+  height: 100vh;
+}
+
+.container {
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30rpx;
+  padding: 42rpx 40rpx;
+  background: linear-gradient(135deg, #004b24 0%, #006633 100%);
+  margin-bottom: 34rpx;
+}
+
+.hero-tag {
+  display: block;
+  font-size: 18rpx;
+  color: rgba(140, 225, 161, 0.88);
+  font-weight: 700;
+  letter-spacing: 3rpx;
+  margin-bottom: 12rpx;
+}
+
+.hero-title {
+  display: block;
+  font-size: 58rpx;
+  line-height: 1.08;
+  color: #ffffff;
+  font-weight: 800;
+  margin-bottom: 14rpx;
+}
+
+.hero-desc {
+  display: block;
+  width: 88%;
+  font-size: 24rpx;
+  line-height: 1.65;
+  color: rgba(140, 225, 161, 0.96);
+}
+
+.hero-blur {
+  position: absolute;
+  right: -70rpx;
+  bottom: -70rpx;
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%;
+  background: rgba(45, 181, 95, 0.24);
+}
+
+.search-wrap {
+  margin-bottom: 36rpx;
+}
+
+.search-box {
+  height: 86rpx;
+  border-radius: 40rpx;
+  background: #e8ebe6;
+  display: flex;
+  align-items: center;
+  padding: 0 28rpx;
+}
+
+.search-icon-wrap {
+  width: 36rpx;
+  height: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+}
+
+.search-icon-img {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 26rpx;
+  color: #1a1c19;
+}
+
+.search-input::placeholder {
+  color: #8a968e;
+}
+
+.filter-row {
+  margin-bottom: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14rpx;
+}
+
+.category-scroll-inline {
+  flex: 1;
+  min-width: 0;
+}
+
+.category-list {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding-right: 12rpx;
+}
+
+.category-chip {
+  flex-shrink: 0;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #3f4940;
+  background: #f4f4ef;
+  border-radius: 999rpx;
+  padding: 14rpx 30rpx;
+  line-height: 1;
+}
+
+.category-chip-active {
+  background: #004b24;
+  color: #ffffff;
+}
+
+.sort-chip {
+  flex-shrink: 0;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #3f4940;
+  background: #f4f4ef;
+  border-radius: 999rpx;
+  padding: 14rpx 30rpx;
+  line-height: 1;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sort-chip-active {
+  background: #004b24;
+  color: #ffffff;
+}
+
+.masonry {
+  display: flex;
+  gap: 24rpx;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.item-card {
+  border-radius: 48rpx;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 16rpx 48rpx rgba(26, 28, 25, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.cover-wrap {
+  width: 100%;
+  position: relative;
+  background: #ecefe9;
+  height: 304rpx;
+}
+
+.ratio-4-5 {
+  height: 304rpx;
+}
+
+.ratio-1-1 {
+  height: 304rpx;
+}
+
+.ratio-3-4 {
+  height: 304rpx;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+}
+
+.condition-tag {
+  position: absolute;
+  top: 24rpx;
+  left: 24rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 18rpx;
+  color: #004b24;
+  letter-spacing: 1rpx;
+  font-weight: 700;
+}
+
+.item-body {
+  padding: 24rpx;
+  min-height: 176rpx;
+  box-sizing: border-box;
+}
+
+.item-title {
+  font-size: 26rpx;
+  color: #1a1c19;
+  line-height: 1.36;
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 12rpx;
+  min-height: 70rpx;
+}
+
+.price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 4rpx;
+  margin-bottom: 24rpx;
+}
+
+.price-symbol {
+  font-size: 20rpx;
+  color: #004b24;
+  font-weight: 700;
+}
+
+.price-value {
+  font-size: 40rpx;
+  color: #004b24;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -1rpx;
+}
+
+.seller-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seller-main {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  min-width: 0;
+}
+
+.seller-avatar {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  border: 2rpx solid #eeeee9;
+}
+
+.seller-name {
+  font-size: 22rpx;
+  color: #3f4940;
+  max-width: 160rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-time {
+  font-size: 18rpx;
+  color: #8c958d;
+}
+
+.loading {
+  padding: 64rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.loading-spinner {
+  width: 48rpx;
+  height: 48rpx;
+  border: 4rpx solid #e8ece6;
+  border-top: 4rpx solid #006633;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  font-size: 24rpx;
+  color: #6f7a6f;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.list-footer {
+  display: flex;
+  justify-content: center;
+  padding: 32rpx 0 8rpx;
+}
+
+.no-more {
+  font-size: 24rpx;
+  color: #6f7a6f;
+}
+
+.safe-bottom {
+  height: 240rpx;
+}
+
+.fab {
+  position: fixed;
+  right: 34rpx;
+  bottom: 146rpx;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: #004b24;
+  box-shadow: 0 10rpx 24rpx rgba(15, 95, 52, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+}
+
+.fab-icon {
+  width: 42rpx;
+  height: 42rpx;
+}

@@ -1,0 +1,19 @@
+@import "./styles/theme.wxss";
+@import "./styles/utilities.wxss";
+
+page {
+  background-color: #f6f8fb;
+  color: #1f2933;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.scrollpage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollpage-scroll {
+  flex: 1;
+  overflow: hidden;
+}

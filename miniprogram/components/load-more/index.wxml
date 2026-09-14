@@ -1,0 +1,5 @@
+<view class="load-more">
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
+  <view wx:elif="{{hasMore}}" class="more" bindtap="handleLoadMore">点击加载更多</view>
+  <view wx:else class="no-more">没有更多了</view>
+</view>

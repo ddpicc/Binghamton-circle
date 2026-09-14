@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "nav-header": "../../../components/nav-header/index",
+    "empty-state": "../../../components/empty-state/index",
+    "load-more": "../../../components/load-more/index"
+  }
+}

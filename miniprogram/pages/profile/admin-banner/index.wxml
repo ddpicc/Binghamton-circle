@@ -1,0 +1,61 @@
+<view class="page">
+  <nav-header title="首页 Banner 管理" show-back="true" />
+  <scroll-view class="scroll" scroll-y>
+    <view class="container">
+      <view wx:if="{{loading}}" class="loading">加载中...</view>
+
+      <block wx:else>
+        <view class="section">
+          <view class="section-title">选择内容类型</view>
+          <view class="tabs">
+            <view
+              wx:for="{{sourceTabs}}"
+              wx:key="value"
+              class="tab {{selectedSourceType === item.value ? 'active' : ''}}"
+              data-value="{{item.value}}"
+              bindtap="handleTabTap"
+            >
+              {{item.label}}
+            </view>
+          </view>
+        </view>
+
+        <view class="section">
+          <view class="section-title">选择展示内容</view>
+          <view
+            wx:for="{{selectedSourceType === 'activity' ? activities : notices}}"
+            wx:key="id"
+            class="item-card {{selectedSourceId === item.id ? 'selected' : ''}}"
+            data-id="{{item.id}}"
+            bindtap="handleSelectItem"
+          >
+            <view class="item-title">{{item.title}}</view>
+            <view class="item-meta">{{item.displayMeta}}</view>
+          </view>
+        </view>
+
+        <view class="section">
+          <view class="section-title">覆盖文案（可选）</view>
+          <view class="field">
+            <view class="label">标签</view>
+            <input class="input" placeholder="例如：重要提醒" value="{{customTag}}" bindinput="handleTagInput" />
+          </view>
+          <view class="field">
+            <view class="label">标题</view>
+            <input class="input" placeholder="不填则使用原始标题" value="{{customTitle}}" bindinput="handleTitleInput" />
+          </view>
+          <view class="field">
+            <view class="label">按钮文案</view>
+            <input class="input" placeholder="例如：查看详情" value="{{customLinkText}}" bindinput="handleLinkTextInput" />
+          </view>
+        </view>
+
+        <button class="save-btn" type="primary" loading="{{saving}}" bindtap="handleSave">
+          {{saving ? '保存中...' : '保存 Banner 配置'}}
+        </button>
+      </block>
+    </view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

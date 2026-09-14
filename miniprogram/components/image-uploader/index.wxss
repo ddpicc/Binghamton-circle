@@ -1,0 +1,52 @@
+.uploader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.preview {
+  position: relative;
+}
+
+.preview-image {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 16rpx;
+  object-fit: cover;
+}
+
+.remove {
+  position: absolute;
+  top: -12rpx;
+  right: -12rpx;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+.add {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 16rpx;
+  border: 2rpx dashed rgba(0, 102, 51, 0.4);
+  color: #006633;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+}
+
+.plus {
+  font-size: 48rpx;
+}
+
+.text {
+  font-size: 24rpx;
+}

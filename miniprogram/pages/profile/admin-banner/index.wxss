@@ -1,0 +1,112 @@
+.page {
+  min-height: 100vh;
+  background: #fafaf5;
+}
+
+.scroll {
+  height: 100vh;
+}
+
+.container {
+  padding: 124rpx 28rpx 48rpx;
+}
+
+.loading {
+  padding: 120rpx 0;
+  text-align: center;
+  color: #6f7a6f;
+  font-size: 28rpx;
+}
+
+.section {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 10rpx 24rpx rgba(26, 28, 25, 0.05);
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #1a1c19;
+  font-weight: 700;
+  margin-bottom: 18rpx;
+}
+
+.tabs {
+  display: flex;
+  gap: 16rpx;
+}
+
+.tab {
+  min-width: 120rpx;
+  height: 64rpx;
+  padding: 0 24rpx;
+  border-radius: 999rpx;
+  background: #f2f5f1;
+  color: #4c564d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.tab.active {
+  background: #0f5f34;
+  color: #fff;
+}
+
+.item-card {
+  border: 2rpx solid #edf1ec;
+  border-radius: 18rpx;
+  padding: 20rpx;
+}
+
+.item-card + .item-card {
+  margin-top: 14rpx;
+}
+
+.item-card.selected {
+  border-color: #0f5f34;
+  background: #f4fbf6;
+}
+
+.item-title {
+  font-size: 28rpx;
+  color: #1a1c19;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.item-meta {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #6f7a6f;
+}
+
+.field + .field {
+  margin-top: 18rpx;
+}
+
+.label {
+  font-size: 22rpx;
+  color: #4c564d;
+  margin-bottom: 10rpx;
+}
+
+.input {
+  height: 84rpx;
+  background: #f7f8f5;
+  border-radius: 16rpx;
+  padding: 0 22rpx;
+  font-size: 26rpx;
+  color: #1a1c19;
+}
+
+.save-btn {
+  margin-top: 12rpx;
+  border-radius: 18rpx;
+  background: #0f5f34;
+  color: #fff;
+}

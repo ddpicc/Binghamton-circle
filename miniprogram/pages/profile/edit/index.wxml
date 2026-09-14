@@ -1,0 +1,94 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="close-btn" bindtap="handleBack">×</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y>
+    <view class="container" style="padding-top: {{contentTop}}px;">
+      <view class="section-label">基础信息</view>
+      <view class="list">
+        <view class="row" bindtap="handleChangeAvatar">
+          <text class="row-title">更换头像</text>
+          <view class="row-right">
+            <image wx:if="{{form.avatar}}" class="avatar" src="{{form.avatar}}" mode="aspectFill" />
+            <view wx:else class="avatar-fallback">{{avatarInitial}}</view>
+            <image class="chevron" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+          </view>
+        </view>
+
+        <view class="row" data-field="nickname" data-title="昵称" bindtap="handleEditTextField">
+          <view class="row-col">
+            <text class="row-title">昵称</text>
+            <text class="row-value">{{form.nickname || '未设置'}}</text>
+          </view>
+          <image class="chevron" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+        </view>
+
+        <view class="row" bindtap="handleEditGender">
+          <view class="row-col">
+            <text class="row-title">性别</text>
+            <text class="row-value">{{form.gender || '未设置'}}</text>
+          </view>
+          <image class="chevron" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+        </view>
+
+        <view class="row" data-field="birthday" data-title="生日" bindtap="handleEditTextField">
+          <view class="row-col">
+            <text class="row-title">生日</text>
+            <text class="row-value">{{birthday || '未设置'}}</text>
+          </view>
+          <image class="chevron" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+        </view>
+      </view>
+
+      <view class="section-label section-gap">校园信息</view>
+      <view class="list">
+        <view class="row" data-field="major" data-title="专业" bindtap="handleEditTextField">
+          <view class="row-col">
+            <text class="row-title">专业</text>
+            <text class="row-value">{{form.major || '未设置'}}</text>
+          </view>
+          <image class="chevron" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+        </view>
+
+        <view class="row" data-field="grade" data-title="入学年份" bindtap="handleEditTextField">
+          <view class="row-col">
+            <text class="row-title">入学年份</text>
+            <text class="row-value">{{form.grade || '未设置'}}</text>
+          </view>
+          <image class="chevron" src="/assets/icons/chevron-right-filled.svg" mode="aspectFit" />
+        </view>
+      </view>
+
+      <view class="section-label section-gap">安全设置</view>
+      <view class="list">
+        <view class="row" bindtap="handleBindWechat">
+          <view class="row-col">
+            <text class="row-title">微信绑定</text>
+            <text class="row-value">{{wechatBound ? '已绑定，可使用微信一键登录' : '未绑定，点击绑定微信账号'}}</text>
+          </view>
+          <text class="action-text">{{bindingWechat ? '绑定中...' : (wechatBound ? '重新绑定' : '立即绑定')}}</text>
+        </view>
+      </view>
+
+      <view class="section-label section-gap">自我介绍</view>
+      <view class="bio-card" data-field="bio" data-title="个性签名" bindtap="handleEditTextField">
+        <view class="bio-header">
+          <text class="row-title">个性签名</text>
+          <text class="edit-tag">编辑</text>
+        </view>
+        <text class="bio-text">{{form.bio || '点击填写你的自我介绍'}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-bar">
+    <button class="save-btn" bindtap="handleSave" loading="{{saving}}">保存更改</button>
+  </view>
+</view>
+
+<profile-completion-sheet />

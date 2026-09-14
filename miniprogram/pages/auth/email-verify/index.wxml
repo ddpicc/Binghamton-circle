@@ -1,0 +1,61 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="close-btn" bindtap="handleBack">×</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y>
+    <view class="container" style="padding-top: {{contentTop}}px;">
+      <view class="section-label">登录入口</view>
+
+      <view wx:if="{{needWechatBind}}" class="bind-tip">
+        微信账号未绑定，请先完成邮箱验证码注册/登录，再在账号内绑定微信。
+      </view>
+
+      <view class="list">
+        <view class="row row-column">
+          <text class="row-title">邮箱登录 / 注册</text>
+        </view>
+
+        <view class="row row-column">
+          <text class="row-title">学校邮箱</text>
+          <view class="email-input-wrap">
+            <input
+              class="input email-input"
+              placeholder="输入邮箱前缀或完整邮箱"
+              value="{{emailUser}}"
+              bindinput="handleEmailInput"
+            />
+            <text wx:if="{{!customEmailMode}}" class="suffix">@binghamton.edu</text>
+          </view>
+        </view>
+
+        <view class="row row-column">
+          <text class="row-title">验证码</text>
+          <view class="code-row">
+          <input
+            class="input code-input"
+            placeholder="6位验证码"
+            value="{{code}}"
+            bindinput="handleCodeInput"
+          />
+          <button
+            class="send-btn"
+            bindtap="handleSendCode"
+            disabled="{{countdown > 0 || sending}}"
+          >
+            {{countdown > 0 ? countdown + 's' : '发送验证码'}}
+          </button>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-bar">
+        <button class="save-btn" loading="{{verifying}}" bindtap="handleVerify">登录 / 注册</button>
+      </view>
+    </view>
+  </scroll-view>
+</view>

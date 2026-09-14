@@ -1,0 +1,30 @@
+{
+  "miniprogramRoot": "miniprogram/",
+  "compileType": "miniprogram",
+  "appid": "wxbde37d86d540f9cf",
+  "projectname": "binghamton-circle-miniprogram",
+  "libVersion": "latest",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "compileHotReLoad": true,
+    "lazyloadPlaceholderEnable": true
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "home",
+          "pathName": "pages/home/index"
+        }
+      ]
+    }
+  }
+}

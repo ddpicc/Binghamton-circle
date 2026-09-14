@@ -1,0 +1,105 @@
+.page {
+  min-height: 100vh;
+  background: #fafaf5;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40;
+  background: rgba(250, 250, 245, 0.84);
+  backdrop-filter: blur(16rpx);
+}
+
+.top-inner {
+  height: 64px;
+  padding: 0 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.close-btn {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #3f4940;
+}
+
+.top-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #004b24;
+  letter-spacing: -0.8rpx;
+}
+
+.scroll {
+  height: 100vh;
+}
+
+.container {
+  padding: 24rpx 32rpx 80rpx;
+}
+
+.notice-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 12rpx 30rpx rgba(15, 23, 42, 0.05);
+}
+
+.notice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+  font-size: 24rpx;
+}
+
+.badge {
+  background: rgba(0, 102, 51, 0.12);
+  color: #006633;
+  border-radius: 999rpx;
+  padding: 6rpx 18rpx;
+}
+
+.time {
+  color: #6b7280;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+
+.excerpt {
+  font-size: 26rpx;
+  color: #4b5563;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16rpx;
+}
+
+.create-btn {
+  margin-top: 32rpx;
+  border-radius: 999rpx;
+}

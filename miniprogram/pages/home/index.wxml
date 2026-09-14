@@ -1,0 +1,114 @@
+<view class="page">
+  <scroll-view class="scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="content" style="padding-top: {{safeTop}}px;">
+      <!-- 顶部栏 -->
+      <view class="top-bar">
+        <view class="school-wrap">
+          <view class="school-logo">
+            <image class="school-logo-image" mode="aspectFill" src="{{avatars.logo}}" />
+          </view>
+          <view class="school-info">
+            <text class="school-en">欢迎回来</text>
+            <text class="school-name">宾汉姆顿大学</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 主标题 -->
+      <view class="hero-header">
+        <text class="brand-title">Binghamton Circle</text>
+        <text class="brand-subtitle">你的校园学术港湾</text>
+      </view>
+
+      <!-- 搜索栏 -->
+      <view class="search-bar" bindtap="handleSearch">
+        <view class="search-icon-wrap">
+          <image class="search-icon-img" mode="aspectFit" src="/assets/icons/search-outline-gray-material.svg" />
+        </view>
+        <text class="search-placeholder">搜索活动、二手、树洞...</text>
+      </view>
+
+      <!-- Banner卡片 -->
+      <view class="banner-card" bindtap="handleBannerTap">
+        <text class="banner-tag">{{banner.tag}}</text>
+        <text class="banner-title">{{banner.title}}</text>
+        <view class="banner-link">
+          <text class="banner-link-text">{{banner.linkText}}</text>
+          <image class="banner-link-arrow" mode="aspectFit" src="/assets/icons/arrow-forward-white.svg" />
+        </view>
+      </view>
+
+      <!-- 快捷菜单 -->
+      <view class="quick-grid">
+        <view class="quick-item" wx:for="{{quickMenus}}" wx:key="id" data-url="{{item.url}}" bindtap="handleNavigate">
+          <view class="quick-icon-wrap">
+            <image class="quick-icon-image" mode="aspectFit" src="{{item.icon}}" />
+          </view>
+          <text class="quick-label">{{item.label}}</text>
+        </view>
+      </view>
+
+      <!-- 最新动态标题 -->
+      <view class="section-head">
+        <text class="section-title">最新动态</text>
+        <text class="section-action" data-url="/pages/activities/index" bindtap="handleNavigate">去逛逛</text>
+      </view>
+
+      <view wx:if="{{feedLoading}}" class="feed-loading">正在加载最新动态...</view>
+      <view wx:elif="{{!latestFeed.length}}" class="feed-empty">暂时还没有新的校园动态</view>
+
+      <view
+        wx:for="{{latestFeed}}"
+        wx:key="route"
+        class="feed-card"
+        data-url="{{item.route}}"
+        bindtap="handleFeedItemTap"
+      >
+        <view class="feed-top">
+          <view class="user-mini">
+            <view class="avatar-mini {{item.avatarMode === 'anon' ? 'green' : ''}}">
+              <image wx:if="{{item.avatarMode === 'image' && item.avatar}}" class="avatar-image" mode="aspectFill" src="{{item.avatar}}" />
+              <image wx:elif="{{item.avatarMode === 'anon'}}" class="avatar-anon-icon" mode="aspectFit" src="{{item.avatar}}" />
+              <text wx:else class="avatar-fallback">{{item.authorName ? item.authorName[0] : '友'}}</text>
+            </view>
+            <view class="user-info">
+              <text class="user-mini-name">{{item.authorName}}</text>
+              <text class="user-mini-meta">{{item.authorMeta}}</text>
+            </view>
+          </view>
+          <text class="card-tag {{item.tagClass}}">{{item.tag}}</text>
+        </view>
+
+        <text wx:if="{{item.title}}" class="feed-title">{{item.title}}</text>
+        <text class="feed-content">{{item.content}}</text>
+
+        <view wx:if="{{item.imageList && item.imageList.length}}" class="feed-images feed-images-{{item.imageList.length > 1 ? 'multi' : 'single'}}">
+          <image
+            wx:for="{{item.imageList}}"
+            wx:key="index"
+            class="feed-image"
+            mode="aspectFill"
+            src="{{item}}"
+            lazy-load
+          />
+        </view>
+
+        <view wx:if="{{item.stats && item.stats.length}}" class="feed-stats">
+          <view wx:for="{{item.stats}}" wx:key="index" class="stat-item">
+            <image class="stat-icon-image" src="{{item.icon}}" mode="aspectFit" />
+            <text class="stat-num">{{item.text}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 浮动按钮 -->
+  <view class="fab" bindtap="handleQuickPublish">
+    <image class="fab-icon" mode="aspectFit" src="/assets/icons/add-white.svg" />
+  </view>
+</view>
+
+<profile-completion-sheet />

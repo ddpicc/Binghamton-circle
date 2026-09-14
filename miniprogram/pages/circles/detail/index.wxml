@@ -1,0 +1,135 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop + 28}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <text class="close-btn" bindtap="handleBack">×</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view
+    class="scroll"
+    scroll-y
+    enable-back-to-top
+    scroll-into-view="{{scrollTarget}}"
+    refresher-enabled
+    bindrefresherrefresh="onPullDownRefresh"
+    style="padding-top: {{safeTop + 88}}px;"
+  >
+    <view class="hero" wx:if="{{circle}}">
+      <image class="hero-image" wx:if="{{circle.cover_image}}" src="{{circle.cover_image}}" mode="aspectFill" />
+      <view wx:else class="hero-image hero-fallback"></view>
+      <view class="hero-mask"></view>
+      <view class="hero-content">
+        <view class="hero-main">
+          <view class="logo-box">
+            <image wx:if="{{circle.cover_image}}" class="logo" src="{{circle.cover_image}}" mode="aspectFill" />
+            <text wx:else class="logo-text">{{circle.nameInitial}}</text>
+          </view>
+          <view class="hero-text">
+            <view class="hero-title">{{circle.name}}</view>
+            <view class="hero-meta">
+              <text>{{circle.member_count || 0}} 成员</text>
+              <text class="dot">·</text>
+              <text>{{circle.onlineCount}} 在线</text>
+            </view>
+          </view>
+        </view>
+        <view class="hero-desc">{{circle.descriptionText}}</view>
+        <view class="hero-actions">
+          <button class="join-btn" bindtap="handleJoin">
+            {{isMember ? '退出圈子' : (circle.is_private ? '申请加入' : '加入圈子')}}
+          </button>
+          <button wx:if="{{isAdmin}}" class="manage-btn" bindtap="handleOpenManage">管理圈子</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="tabs-wrap" wx:if="{{circle}}" style="top: {{safeTop + 88}}px;">
+      <view class="tabs">
+        <view class="tab {{activeTab === 'posts' ? 'active' : ''}}" data-tab="posts" bindtap="handleTabChange">帖子</view>
+        <view class="tab {{activeTab === 'rules' ? 'active' : ''}}" data-tab="rules" bindtap="handleTabChange">规则</view>
+        <view class="tab {{activeTab === 'members' ? 'active' : ''}}" data-tab="members" bindtap="handleTabChange">成员</view>
+      </view>
+    </view>
+
+    <view class="content">
+      <view wx:if="{{activeTab === 'posts'}}" class="posts-list">
+        <view class="post-card {{highlightPostId === item.id ? 'highlight' : ''}}" id="post-{{item.id}}" wx:for="{{posts}}" wx:key="id" data-post-id="{{item.id}}">
+          <view class="post-header">
+            <view class="author-wrap">
+              <image wx:if="{{item.authorAvatar}}" class="author-avatar" src="{{item.authorAvatar}}" mode="aspectFill" />
+              <view wx:else class="author-avatar avatar-fallback">{{item.authorInitial}}</view>
+              <view class="author-text">
+                <text class="author-name" data-user-id="{{item.authorId}}" bindtap="handleViewUser">{{item.authorName}}</text>
+                <text class="author-time">{{item.createdAt}}</text>
+              </view>
+            </view>
+            <view class="post-header-right">
+              <view class="feature-tag" wx:if="{{item.isFeatured}}">精选</view>
+              <image
+                wx:if="{{item.canDelete}}"
+                class="more-icon"
+                src="/assets/icons/more-horiz-muted.svg"
+                mode="aspectFit"
+                data-post-id="{{item.id}}"
+                catchtap="handleMoreTap"
+              />
+            </view>
+          </view>
+          <view class="post-title" wx:if="{{item.title}}">{{item.title}}</view>
+          <view class="post-content">{{item.content}}</view>
+
+          <view class="post-images" wx:if="{{item.images && item.images.length}}">
+            <block wx:for="{{item.images}}" wx:key="index">
+              <image class="post-image" src="{{item}}" mode="aspectFill" />
+            </block>
+          </view>
+
+          <view class="post-footer">
+            <view class="stat">{{item.like_count || 0}} 点赞</view>
+            <view class="stat">{{item.comment_count || 0}} 评论</view>
+          </view>
+
+          <view class="comment-box" wx:if="{{commentPostId === item.id}}">
+            <textarea class="comment-input" placeholder="说点什么..." value="{{commentContent}}" bindinput="handleCommentInput" />
+            <button class="comment-submit" type="primary" size="mini" bindtap="handleSubmitComment">发送</button>
+          </view>
+        </view>
+
+        <view class="empty" wx:if="{{!posts.length && !postsLoading}}">还没有帖子，快来发布第一条吧</view>
+        <view class="loading" wx:if="{{postsLoading}}">加载中...</view>
+      </view>
+
+      <view wx:if="{{activeTab === 'rules'}}" class="rules-wrap">
+        <view class="info-card">
+          <view class="section-title">圈子简介</view>
+          <view class="section-content">{{circle.descriptionText}}</view>
+        </view>
+        <view class="info-card">
+          <view class="section-title">圈子规则</view>
+          <view class="section-content">{{circle.rulesText}}</view>
+        </view>
+        <view class="info-card">
+          <view class="section-title">创建者</view>
+          <view class="section-content">{{circle.creatorName}}</view>
+        </view>
+      </view>
+
+      <view wx:if="{{activeTab === 'members'}}" class="members-wrap">
+        <view class="section-title">成员列表 ({{members.length}})</view>
+        <view class="member-card" wx:for="{{members}}" wx:key="id" data-user-id="{{item.userId}}" bindtap="handleViewUser">
+          <view class="member-avatar">{{item.avatarInitial}}</view>
+          <view class="member-info">
+            <view class="member-name">{{item.displayName}}</view>
+            <view class="member-role">{{item.roleLabel}}</view>
+          </view>
+        </view>
+        <view class="loading" wx:if="{{membersLoading}}">加载成员...</view>
+        <view class="empty" wx:if="{{!members.length && !membersLoading}}">暂无成员</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

@@ -1,0 +1,142 @@
+.page {
+  min-height: 100vh;
+  background: #fafaf5;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40;
+  background: rgba(250, 250, 245, 0.84);
+  backdrop-filter: blur(16rpx);
+}
+
+.top-inner {
+  height: 64px;
+  padding: 0 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.close-btn {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #3f4940;
+}
+
+.scroll {
+  height: 100vh;
+}
+
+.container {
+  padding: 0 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.tips-card {
+  background: rgba(0, 75, 36, 0.08);
+  border-left: 8rpx solid #004b24;
+  border-radius: 24rpx;
+  padding: 24rpx 28rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.tips-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #004b24;
+}
+
+.tips-desc {
+  font-size: 24rpx;
+  color: #3f4940;
+  line-height: 1.6;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  box-shadow: 0 8rpx 24rpx rgba(26, 28, 25, 0.04);
+}
+
+.composer-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.content-input {
+  width: 100%;
+  min-height: 320rpx;
+  font-size: 28rpx;
+  color: #1a1c19;
+  line-height: 1.65;
+}
+
+.placeholder {
+  color: #8a968e;
+}
+
+.counter {
+  text-align: right;
+  font-size: 22rpx;
+  color: #8a968e;
+}
+
+.uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+  padding-top: 6rpx;
+}
+
+.uploader-hint {
+  font-size: 20rpx;
+  color: rgba(63, 73, 64, 0.66);
+}
+
+.image-count {
+  font-size: 24rpx;
+  color: #1a1c19;
+}
+
+.safe-bottom {
+  height: 190rpx;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  padding: 18rpx 40rpx calc(env(safe-area-inset-bottom) + 24rpx);
+  background: rgba(250, 250, 245, 0.92);
+  backdrop-filter: blur(14rpx);
+}
+
+.submit-btn {
+  width: 100%;
+  height: 92rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #00a86b, #006633);
+  font-size: 32rpx;
+  font-weight: 700;
+}

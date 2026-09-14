@@ -1,0 +1,9 @@
+{
+  "desc": "Binghamton Circle Mini Program",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

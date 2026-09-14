@@ -1,0 +1,123 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop + 28}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <image class="top-avatar" src="{{topAvatar}}" mode="aspectFill" />
+        <text class="nav-title">Binghamton Circle</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y enable-back-to-top bindscrolltolower="handleLoadMore">
+    <view class="container" style="padding-top: {{safeTop + 88}}px;">
+      <view class="hero-card">
+        <text class="hero-tag">校园好物</text>
+        <text class="hero-title">闲置</text>
+        <text class="hero-desc">发布和发现同校同学的二手好物，让闲置流动起来。</text>
+        <view class="hero-blur"></view>
+      </view>
+
+      <view class="search-wrap">
+        <view class="search-box">
+          <view class="search-icon-wrap">
+            <image class="search-icon-img" src="/assets/icons/search-outline-gray-material.svg" mode="aspectFit" />
+          </view>
+          <input
+            class="search-input"
+            placeholder="搜索校内二手宝贝..."
+            confirm-type="search"
+            value="{{search}}"
+            bindinput="handleSearchInput"
+            bindconfirm="handleSearchConfirm"
+          />
+        </view>
+      </view>
+
+      <view class="filter-row">
+        <scroll-view class="category-scroll-inline" scroll-x enable-flex show-scrollbar="{{false}}">
+          <view class="category-list">
+            <view
+              wx:for="{{chipOptions}}"
+              wx:key="value"
+              class="category-chip {{selectedCategory === item.value ? 'category-chip-active' : ''}}"
+              data-value="{{item.value}}"
+              bindtap="handleCategoryTap"
+            >
+              {{item.label}}
+            </view>
+          </view>
+        </scroll-view>
+
+        <view class="sort-chip sort-chip-active" bindtap="handleSortPickerTap">
+          {{sortLabel}}
+        </view>
+      </view>
+
+      <view class="masonry" wx:if="{{items.length}}">
+        <view class="column">
+          <view wx:for="{{leftColumn}}" wx:key="id" class="item-card" data-id="{{item.id}}" bindtap="handleItemTap">
+            <view class="cover-wrap {{item.ratioClass}}">
+              <image class="cover" src="{{item.cover}}" mode="aspectFill" />
+              <view class="condition-tag">{{item.conditionTag}}</view>
+            </view>
+            <view class="item-body">
+              <text class="item-title">{{item.title}}</text>
+              <view class="price-wrap">
+                <text class="price-symbol">$</text>
+                <text class="price-value">{{item.price}}</text>
+              </view>
+              <view class="seller-row">
+                <view class="seller-main">
+                  <image class="seller-avatar" src="{{item.sellerAvatar}}" mode="aspectFill" />
+                  <text class="seller-name">{{item.sellerName}}</text>
+                </view>
+                <text class="item-time">{{item.createdText}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="column">
+          <view wx:for="{{rightColumn}}" wx:key="id" class="item-card" data-id="{{item.id}}" bindtap="handleItemTap">
+            <view class="cover-wrap {{item.ratioClass}}">
+              <image class="cover" src="{{item.cover}}" mode="aspectFill" />
+              <view class="condition-tag">{{item.conditionTag}}</view>
+            </view>
+            <view class="item-body">
+              <text class="item-title">{{item.title}}</text>
+              <view class="price-wrap">
+                <text class="price-symbol">$</text>
+                <text class="price-value">{{item.price}}</text>
+              </view>
+              <view class="seller-row">
+                <view class="seller-main">
+                  <image class="seller-avatar" src="{{item.sellerAvatar}}" mode="aspectFill" />
+                  <text class="seller-name">{{item.sellerName}}</text>
+                </view>
+                <text class="item-time">{{item.createdText}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <empty-state wx:elif="{{!loading}}" title="暂无物品" description="快来发布第一个吧" action-text="我要发布" bind:action="handlePublish" />
+
+      <view class="loading" wx:if="{{loading}}">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+
+      <view class="list-footer" wx:if="{{!hasMore && items.length}}">
+        <view class="no-more">没有更多内容了</view>
+      </view>
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <view class="fab" bindtap="handlePublish">
+    <image class="fab-icon" src="/assets/icons/add-white.svg" mode="aspectFit" />
+  </view>
+</view>
+
+<profile-completion-sheet />

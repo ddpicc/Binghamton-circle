@@ -1,0 +1,18 @@
+<view class="page">
+  <nav-header title="{{hasPassword ? '修改登录密码' : '设置登录密码'}}" show-back="true" />
+  <scroll-view class="scroll" scroll-y>
+    <view class="container">
+      <view class="section">
+        <view class="tip">{{hasPassword ? '已设置密码，可用于账号密码登录。' : '首次设置密码后，后续可直接使用邮箱 + 密码登录。'}}</view>
+        <input wx:if="{{hasPassword}}" password class="input" placeholder="当前密码" data-field="currentPassword" value="{{currentPassword}}" bindinput="handleInput" />
+        <input password class="input" placeholder="新密码（至少6位）" data-field="newPassword" value="{{newPassword}}" bindinput="handleInput" />
+        <input password class="input" placeholder="确认新密码" data-field="confirmPassword" value="{{confirmPassword}}" bindinput="handleInput" />
+        <button class="save-btn" type="primary" loading="{{saving}}" bindtap="handleSave">
+          {{saving ? '保存中...' : (hasPassword ? '更新密码' : '设置密码')}}
+        </button>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

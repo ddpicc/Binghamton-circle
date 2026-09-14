@@ -1,0 +1,85 @@
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.gap-16 {
+  display: flex;
+  gap: 16rpx;
+}
+
+.container {
+  padding: 24rpx 32rpx 40rpx;
+}
+
+.mt-24 {
+  margin-top: 24rpx;
+}
+
+.mt-32 {
+  margin-top: 32rpx;
+}
+
+.mt-48 {
+  margin-top: 48rpx;
+}
+
+.text-muted {
+  color: #6b7280;
+}
+
+.text-primary {
+  color: #006633;
+}
+
+.text-danger {
+  color: #ef4444;
+}
+
+.badge-success {
+  background: rgba(22, 163, 74, 0.12);
+  color: #16a34a;
+}
+
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300rpx, 1fr));
+  gap: 24rpx;
+}
+
+.safe-area {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.scroll {
+  height: 100%;
+}
+
+.loading-state {
+  padding: 48rpx 0;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80rpx 0;
+  color: #6b7280;
+}

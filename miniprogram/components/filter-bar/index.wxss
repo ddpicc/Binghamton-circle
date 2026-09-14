@@ -1,0 +1,20 @@
+.filter-bar {
+  display: flex;
+  gap: 16rpx;
+  overflow-x: auto;
+  padding: 8rpx 0;
+}
+
+.filter-item {
+  padding: 12rpx 24rpx;
+  border-radius: 999rpx;
+  background: rgba(0, 102, 51, 0.08);
+  color: #006633;
+  font-size: 26rpx;
+  white-space: nowrap;
+}
+
+.filter-item.active {
+  background: #006633;
+  color: #ffffff;
+}

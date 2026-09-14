@@ -1,0 +1,154 @@
+.page {
+  min-height: 100vh;
+  background: #f6f8fb;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(246, 248, 251, 0.96);
+  backdrop-filter: blur(18rpx);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 0 28rpx 18rpx;
+}
+
+.back-btn {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 18rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(12, 30, 20, 0.06);
+}
+
+.back-icon {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #17261d;
+}
+
+.subtitle {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: #7a8b81;
+}
+
+.scroll {
+  height: 100vh;
+}
+
+.content {
+  padding: 0 24rpx;
+}
+
+.placeholder {
+  margin-top: 20rpx;
+  padding: 72rpx 32rpx;
+  text-align: center;
+  color: #728278;
+  font-size: 26rpx;
+  background: #ffffff;
+  border-radius: 28rpx;
+}
+
+.card {
+  margin-top: 20rpx;
+  padding: 28rpx;
+  background: #ffffff;
+  border-radius: 28rpx;
+  box-shadow: 0 10rpx 30rpx rgba(12, 30, 20, 0.05);
+}
+
+.card-top,
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badge {
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.badge-treehole {
+  background: #edf8f1;
+  color: #1d6f44;
+}
+
+.badge-o2o {
+  background: #fff4e8;
+  color: #a5631f;
+}
+
+.badge-activity {
+  background: #edf2ff;
+  color: #415fc4;
+}
+
+.badge-notice {
+  background: #fff0f0;
+  color: #c44a4a;
+}
+
+.badge-circle,
+.badge-post {
+  background: #eef5ff;
+  color: #3461a8;
+}
+
+.time,
+.card-meta {
+  font-size: 22rpx;
+  color: #7a8b81;
+}
+
+.card-title {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  line-height: 1.35;
+  color: #17261d;
+  font-weight: 700;
+}
+
+.card-summary {
+  margin-top: 14rpx;
+  font-size: 26rpx;
+  line-height: 1.65;
+  color: #4f6156;
+}
+
+.card-bottom {
+  margin-top: 22rpx;
+}
+
+.arrow {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.safe-bottom {
+  height: 40rpx;
+}

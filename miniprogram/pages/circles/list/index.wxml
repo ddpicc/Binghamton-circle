@@ -1,0 +1,97 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop + 28}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <view class="icon-btn" bindtap="handleBack">
+          <image class="icon back-icon" src="/assets/icons/chevron-right-primary.svg" mode="aspectFit" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y enable-back-to-top bindscrolltolower="onReachBottom" refresher-enabled bindrefresherrefresh="onPullDownRefresh">
+    <view class="container" style="padding-top: {{safeTop + 88}}px;">
+      <view class="search-card">
+        <view class="search-row">
+          <image class="search-icon" src="/assets/icons/search-outline-gray-material.svg" mode="aspectFit" />
+          <input
+            class="search-input"
+            placeholder="搜索圈子、描述关键词"
+            value="{{searchValue}}"
+            confirm-type="search"
+            bindinput="handleSearchInput"
+            bindconfirm="handleSearchConfirm"
+          />
+        </view>
+        <button class="clear-button" wx:if="{{searchValue}}" size="mini" bindtap="handleClearSearch">清空</button>
+      </view>
+
+      <view class="stats-card">
+        <view class="stats-item">
+          <view class="stats-label">圈子总数</view>
+          <view class="stats-value">{{stats.total}}</view>
+        </view>
+        <view class="divider"></view>
+        <view class="stats-item">
+          <view class="stats-label">我加入的圈子</view>
+          <view class="stats-value">{{stats.joined}}</view>
+        </view>
+        <button class="create-button" size="mini" bindtap="handleCreateCircle">创建圈子</button>
+      </view>
+
+      <view class="list-section">
+        <block wx:if="{{circles.length}}">
+          <view class="circle-list">
+            <view class="circle-card" wx:for="{{circles}}" wx:key="id">
+              <view class="cover" data-id="{{item.id}}" bindtap="handleOpenCircle">
+                <image wx:if="{{item.cover_image}}" mode="aspectFill" src="{{item.cover_image}}" />
+                <view wx:else class="cover-fallback">{{item.__initial}}</view>
+                <view class="badge-row">
+                  <view class="badge private" wx:if="{{item.is_private}}">私密</view>
+                  <view class="badge joined" wx:if="{{item.is_member}}">已加入</view>
+                </view>
+              </view>
+              <view class="info">
+                <view class="main-row">
+                  <view class="text-wrap">
+                    <view class="title" data-id="{{item.id}}" bindtap="handleOpenCircle">{{item.name}}</view>
+                    <view class="desc">{{item.description || '这个圈子还没有描述'}}</view>
+                  </view>
+                  <button
+                    class="circle-action-btn"
+                    size="mini"
+                    data-id="{{item.id}}"
+                    data-joined="{{item.is_member}}"
+                    bindtap="handleJoinCircle"
+                  >
+                    <text wx:if="{{!item.is_member}}" class="circle-action-symbol plus">+</text>
+                    <text wx:else class="circle-action-symbol minus">−</text>
+                  </button>
+                </view>
+                <view class="meta">
+                  <text>{{item.member_count || 0}} 成员</text>
+                  <text>{{item.post_count || 0}} 帖子</text>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <load-more
+            wx:if="{{hasMore}}"
+            loading="{{loading}}"
+            has-more="{{hasMore}}"
+            bind:loadmore="handleLoadMoreTap"
+          />
+        </block>
+
+        <empty-state
+          wx:if="{{!circles.length && !loading}}"
+          title="暂无圈子"
+          description="试试调整筛选条件，或创建一个新圈子"
+        />
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

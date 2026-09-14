@@ -1,0 +1,25 @@
+<view wx:if="{{visible}}" class="sheet-host" catchtouchmove="noop">
+  <view class="sheet-mask" catchtap="handleMaskTap"></view>
+  <view class="sheet-panel" catchtouchmove="noop">
+    <view class="sheet-title">完善微信资料</view>
+    <view class="sheet-desc">你已登录，但还缺少头像或昵称。请完成授权后保存。</view>
+
+    <button class="avatar-picker" open-type="chooseAvatar" bindchooseavatar="handleChooseAvatar">
+      <image wx:if="{{wechatAvatar}}" class="picker-avatar-img" src="{{wechatAvatar}}" mode="aspectFill" />
+      <view wx:else class="picker-avatar-fallback">{{avatarInitial}}</view>
+      <view class="picker-tip">点此选择头像</view>
+    </button>
+
+    <input
+      class="nickname-input"
+      type="nickname"
+      placeholder="请输入微信昵称"
+      value="{{wechatNickname}}"
+      bindinput="handleNicknameInput"
+    />
+
+    <button class="submit-btn" loading="{{submitting}}" bindtap="handleSubmit">
+      保存头像和昵称
+    </button>
+  </view>
+</view>

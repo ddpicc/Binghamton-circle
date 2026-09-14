@@ -1,0 +1,30 @@
+<view class="page">
+  <nav-header title="登录邮箱白名单" show-back="true" />
+  <scroll-view class="scroll" scroll-y>
+    <view class="container">
+      <view class="section">
+        <view class="section-title">添加可登录的非学校邮箱</view>
+        <input class="input" placeholder="例如 qcui10@outlook.com" value="{{email}}" bindinput="handleEmailInput" />
+        <input class="input" placeholder="备注（可选）" value="{{note}}" bindinput="handleNoteInput" />
+        <button class="save-btn" type="primary" loading="{{saving}}" bindtap="handleAdd">
+          {{saving ? '保存中...' : '添加邮箱'}}
+        </button>
+      </view>
+
+      <view class="section">
+        <view class="section-title">当前白名单</view>
+        <view wx:if="{{loading}}" class="loading">加载中...</view>
+        <view wx:elif="{{!list.length}}" class="empty">暂无白名单邮箱</view>
+        <view wx:for="{{list}}" wx:key="id" class="item-card">
+          <view class="item-main">
+            <view class="item-email">{{item.email}}</view>
+            <view class="item-note">{{item.note || '无备注'}}</view>
+          </view>
+          <text class="delete-btn" data-id="{{item.id}}" data-email="{{item.email}}" bindtap="handleDelete">删除</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<profile-completion-sheet />

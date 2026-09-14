@@ -1,0 +1,10 @@
+<view class="uploader">
+  <view class="preview" wx:for="{{value}}" wx:key="index">
+    <image class="preview-image" mode="aspectFill" src="{{item}}" bindtap="handlePreview" data-index="{{index}}" />
+    <view class="remove" bindtap="handleRemove" data-index="{{index}}">×</view>
+  </view>
+  <view wx:if="{{value.length < max}}" class="add" bindtap="handleSelect">
+    <view class="plus">＋</view>
+    <view class="text">{{uploading ? '上传中...' : '添加图片'}}</view>
+  </view>
+</view>

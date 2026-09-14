@@ -1,0 +1,66 @@
+<view class="page">
+  <view class="topbar" style="padding-top: {{safeTop + 24}}px;">
+    <view class="topbar-inner">
+      <view class="back-btn" bindtap="handleBack">
+        <image class="back-icon" src="/assets/icons/arrow_back_ios_new_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg" mode="aspectFit" />
+      </view>
+      <text class="title">树洞详情</text>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y enable-back-to-top>
+    <view class="content" style="padding-top: {{safeTop + 96}}px;">
+      <view wx:if="{{loading}}" class="placeholder">正在加载树洞内容...</view>
+      <view wx:elif="{{error}}" class="placeholder">
+        <text>{{error}}</text>
+        <button class="retry-btn" bindtap="handleRetry">重试</button>
+      </view>
+
+      <block wx:elif="{{post}}">
+        <view class="post-card">
+          <view class="post-head">
+            <view class="avatar-shell">
+              <image class="avatar-icon" src="/assets/icons/forest-primary.svg" mode="aspectFit" />
+            </view>
+            <view class="post-meta">
+              <text class="name">匿名树洞</text>
+              <text class="time">{{post.createdText}}</text>
+            </view>
+          </view>
+          <text class="content-text">{{post.content}}</text>
+          <view wx:if="{{post.images && post.images.length}}" class="image-grid">
+            <image
+              wx:for="{{post.images}}"
+              wx:key="index"
+              class="post-image"
+              src="{{item}}"
+              mode="aspectFill"
+              show-menu-by-longpress="{{true}}"
+            />
+          </view>
+          <view class="stats">
+            <text>{{post.like_count || 0}} 赞</text>
+            <text>{{post.comment_count || 0}} 评论</text>
+            <text>{{post.view_count || 0}} 浏览</text>
+          </view>
+        </view>
+
+        <view class="section-title">全部评论</view>
+        <view wx:if="{{comments.length}}" class="comment-list">
+          <view wx:for="{{comments}}" wx:key="id" class="comment-item">
+            <view class="comment-avatar {{item.avatarClass}}">{{item.avatarText}}</view>
+            <view class="comment-body">
+              <view class="comment-head">
+                <text class="comment-name">{{item.displayName}}</text>
+                <text class="comment-time">{{item.createdText}}</text>
+              </view>
+              <text class="comment-content">{{item.content}}</text>
+            </view>
+          </view>
+        </view>
+        <view wx:else class="empty-comments">还没有评论</view>
+      </block>
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,124 @@
+<view class="page">
+  <view class="top-bar" style="padding-top: {{safeTop + 28}}px;">
+    <view class="top-inner">
+      <view class="left-wrap">
+        <image class="top-avatar" src="{{topAvatar}}" mode="aspectFill" />
+        <text class="nav-title">Binghamton Circle</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y enable-back-to-top bindscrolltolower="onReachBottom">
+    <view class="container" style="padding-top: {{safeTop + 88}}px;">
+      <view class="hero-card">
+        <text class="hero-tag">圈友圈</text>
+        <text class="hero-title">圈子</text>
+        <text class="hero-desc">关注你已加入的圈子，查看最新动态与热门讨论。</text>
+        <view class="hero-blur"></view>
+      </view>
+
+      <view class="segment-wrap">
+        <view class="segment {{activeSegment === 'follow' ? 'segment-active' : ''}}" data-segment="follow" bindtap="handleSegmentChange">关注</view>
+        <view class="segment {{activeSegment === 'hot' ? 'segment-active' : ''}}" data-segment="hot" bindtap="handleSegmentChange">热门</view>
+      </view>
+
+      <scroll-view class="story-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+        <view class="story-list">
+          <view class="story-item" bindtap="handleCreateCircle">
+            <view class="story-circle create-circle">
+              <text class="create-plus">+</text>
+            </view>
+            <text class="story-label">更多</text>
+          </view>
+
+          <view class="story-item" wx:for="{{storyCircles}}" wx:key="id" data-circle-id="{{item.id}}" bindtap="handleViewCircle">
+            <image class="story-circle" src="{{item.cover}}" mode="aspectFill" />
+            <text class="story-label">{{item.name}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="feed-list" wx:if="{{displayPosts.length}}">
+        <block wx:for="{{displayPosts}}" wx:key="id">
+          <view class="promo-card" wx:if="{{item.isPromo}}">
+            <view class="promo-main">
+              <view>
+                <view class="promo-tag-wrap">
+                  <view class="promo-dot"></view>
+                  <text class="promo-tag">精彩活动</text>
+                </view>
+                <text class="promo-title">年度校园科技节</text>
+                <text class="promo-desc">本周五大厅见。与20多家顶尖科技公司交流。</text>
+              </view>
+              <button class="promo-button" bindtap="handleGoToActivities">立即报名</button>
+            </view>
+            <image class="promo-cover" src="{{item.image}}" mode="aspectFill" />
+          </view>
+
+          <view class="feed-card" wx:else data-post-id="{{item.id}}" bindtap="handleViewPost">
+            <view class="feed-head">
+              <view class="author-wrap">
+                <image class="author-avatar" src="{{item.avatar}}" mode="aspectFill" />
+                <view class="author-meta">
+                  <text class="author-name">{{item.displayName}}</text>
+                  <view class="meta-row">
+                    <text class="circle-tag">{{item.circleName}}</text>
+                    <text class="author-time">{{item.displayTime}}</text>
+                  </view>
+                </view>
+              </view>
+              <image
+                wx:if="{{item.canDelete}}"
+                class="more-icon"
+                src="/assets/icons/more-horiz-muted.svg"
+                mode="aspectFit"
+                data-post-id="{{item.id}}"
+                catchtap="handleMoreTap"
+              />
+            </view>
+
+            <text class="feed-content">{{item.displayContent}}</text>
+
+            <image class="feed-cover" wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill" />
+
+            <view class="feed-actions">
+              <view class="action-left">
+                <view class="action-item">
+                  <image class="action-icon" src="{{item.liked ? '/assets/icons/favorite-filled-red-material.svg' : '/assets/icons/favorite-outline-muted.svg'}}" mode="aspectFit" />
+                  <text class="action-text">{{item.likeCount}}</text>
+                </view>
+                <view class="action-item">
+                  <image class="action-icon" src="/assets/icons/chat-bubble-muted.svg" mode="aspectFit" />
+                  <text class="action-text">{{item.commentCount}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <view class="empty-state" wx:if="{{!displayPosts.length && !loading}}">
+        <view class="empty-title">{{isLoggedIn ? '暂无圈子动态' : '请先登录'}}</view>
+        <view class="empty-desc">{{isLoggedIn ? '加入圈子后即可看到最新动态' : '登录后即可查看圈子动态'}}</view>
+        <button class="empty-button" wx:if="{{isLoggedIn}}" bindtap="handleGoToCircles">去加入圈子</button>
+        <button class="empty-button" wx:else bindtap="handleGoToLogin">请先登录</button>
+      </view>
+
+      <view class="loading" wx:if="{{loading}}">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+
+      <view class="list-footer" wx:if="{{!hasMore && displayPosts.length}}">
+        <view class="no-more">没有更多内容了</view>
+      </view>
+      <view class="safe-bottom"></view>
+    </view>
+  </scroll-view>
+
+  <view class="fab" bindtap="handleQuickPublish">
+    <image class="fab-icon" src="/assets/icons/add-white.svg" mode="aspectFit" />
+  </view>
+</view>
+
+<profile-completion-sheet />

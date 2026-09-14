@@ -1,0 +1,150 @@
+.page {
+  min-height: 100vh;
+  background: #fafaf5;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40;
+  background: rgba(250, 250, 245, 0.84);
+  backdrop-filter: blur(16rpx);
+}
+
+.top-inner {
+  height: 64px;
+  padding: 0 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.close-btn {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #3f4940;
+}
+
+.top-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #004b24;
+  letter-spacing: -0.8rpx;
+}
+
+.more-btn {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 18rpx rgba(15, 23, 42, 0.08);
+}
+
+.more-icon {
+  width: 34rpx;
+  height: 34rpx;
+}
+
+.scroll {
+  height: 100vh;
+}
+
+.container {
+  padding: 32rpx 36rpx 80rpx;
+}
+
+.gallery {
+  height: 520rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  margin-bottom: 24rpx;
+  background: #f3f5f7;
+}
+
+.gallery-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 520rpx;
+}
+
+.section {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 12rpx 30rpx rgba(15, 23, 42, 0.05);
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.price {
+  font-size: 28rpx;
+  color: #006633;
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-top: 12rpx;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 16rpx;
+}
+
+.tag {
+  background: rgba(0, 102, 51, 0.1);
+  color: #006633;
+  border-radius: 999rpx;
+  padding: 6rpx 18rpx;
+  font-size: 22rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+
+.content {
+  font-size: 26rpx;
+  color: #1f2933;
+  line-height: 1.6;
+}
+
+.loading {
+  padding: 80rpx 0;
+  text-align: center;
+  color: #6b7280;
+}

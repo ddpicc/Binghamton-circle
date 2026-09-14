@@ -1,0 +1,35 @@
+<view class="page">
+  <nav-header title="{{isRegister ? '注册' : '登录'}}" show-back="{{true}}" />
+  <view class="container">
+    <view class="card">
+      <view class="title">{{isRegister ? '邮箱注册' : '邮箱登录'}}</view>
+      <view class="desc">{{isRegister ? '输入邮箱完成注册，开启校园社区之旅' : '输入邮箱登录您的账号'}}</view>
+      
+      <view class="field">
+        <view class="label">邮箱地址</view>
+        <input placeholder="请输入邮箱地址" value="{{email}}" bindinput="handleEmailInput" />
+      </view>
+      
+      <view class="field" wx:if="{{isRegister}}">
+        <view class="label">昵称</view>
+        <input placeholder="请输入昵称" value="{{nickname}}" bindinput="handleNicknameInput" />
+      </view>
+      
+      <view class="field code-field">
+        <view class="label">验证码</view>
+        <input placeholder="请输入验证码" value="{{code}}" bindinput="handleCodeInput" />
+        <button size="mini" type="primary" bindtap="handleSendCode" disabled="{{countdown > 0 || sending}}">
+          {{countdown > 0 ? countdown + 's' : '发送验证码'}}
+        </button>
+      </view>
+      
+      <button type="primary" loading="{{verifying}}" bindtap="handleSubmit">{{isRegister ? '注册' : '登录'}}</button>
+      
+      <view class="switch-mode" bindtap="switchMode">
+        {{isRegister ? '已有账号？立即登录' : '还没有账号？立即注册'}}
+      </view>
+    </view>
+  </view>
+</view>
+
+<profile-completion-sheet />
